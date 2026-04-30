@@ -800,6 +800,181 @@
         padding-top: 3mm;
       }
     }
+  
+    /* ===== CORREÇÃO FINAL - REGISTRO FOTOGRÁFICO EM PDF =====
+       Objetivo: 2 fotos por linha, 4 fotos por página, sem corte e sem interferência dos campos de preenchimento.
+    */
+
+    .photo-print-title {
+      display: none;
+    }
+
+    .photo-preview {
+      display: block !important;
+      margin-top: 16px !important;
+    }
+
+    .photo-page {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      grid-template-rows: repeat(2, auto) !important;
+      gap: 14px !important;
+      margin: 16px 0 22px !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+
+    .photo-item {
+      margin: 0 !important;
+      padding: 10px !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 10px !important;
+      background: #fff !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      overflow: hidden !important;
+    }
+
+    .photo-frame {
+      width: 100% !important;
+      height: 190px !important;
+      background: #f8f6f3 !important;
+      border-radius: 6px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+
+    .photo-frame img {
+      display: block !important;
+      width: auto !important;
+      height: auto !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      margin: auto !important;
+    }
+
+    .photo-caption {
+      margin-top: 7px !important;
+      font-size: 10px !important;
+      line-height: 1.35 !important;
+      color: var(--secondary) !important;
+      text-align: center !important;
+      min-height: 28px !important;
+      border: 0 !important;
+      background: transparent !important;
+      resize: vertical !important;
+      padding: 0 !important;
+      width: 100% !important;
+    }
+
+    @media print {
+      .photo-block > .grid-3,
+      .photo-block > .field-box,
+      .photo-block > textarea,
+      .photo-block > label,
+      .photo-block input[type="file"] {
+        display: none !important;
+      }
+
+      .photo-print-title {
+        display: block !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: .4px !important;
+        color: var(--primary) !important;
+        margin: 0 0 7mm !important;
+        padding-bottom: 3mm !important;
+        border-bottom: 1px solid var(--border) !important;
+      }
+
+      .photo-preview {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .photo-page {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: repeat(2, 1fr) !important;
+        gap: 7mm !important;
+        width: 100% !important;
+        height: 235mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        page-break-before: always !important;
+        break-before: page !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .photo-page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+
+      .photo-item {
+        width: 100% !important;
+        height: 111mm !important;
+        margin: 0 !important;
+        padding: 4mm !important;
+        border: 1px solid #ddd6cf !important;
+        border-radius: 8px !important;
+        background: #fff !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .photo-frame {
+        width: 100% !important;
+        height: 93mm !important;
+        min-height: 93mm !important;
+        max-height: 93mm !important;
+        background: #fff !important;
+        border-radius: 4px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+      }
+
+      .photo-frame img {
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+        margin: auto !important;
+      }
+
+      .photo-caption {
+        height: 10mm !important;
+        min-height: 10mm !important;
+        max-height: 10mm !important;
+        margin-top: 3mm !important;
+        font-size: 8.5px !important;
+        line-height: 1.2 !important;
+        color: var(--secondary) !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        border: 0 !important;
+        background: transparent !important;
+        padding: 0 !important;
+        resize: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -1142,44 +1317,41 @@ FKSA Arquitetura | Design</textarea>
     }
 
     function previewPhotos(input) {
-      const preview = input.closest('.photo-block').querySelector('.photo-preview');
+      const photoBlock = input.closest('.photo-block');
+      const preview = photoBlock.querySelector('.photo-preview');
       preview.innerHTML = '';
 
       const files = Array.from(input.files);
-      let currentPage = null;
 
       files.forEach((file, index) => {
+        let currentPage;
+
         if (index % 4 === 0) {
           currentPage = document.createElement('div');
           currentPage.className = 'photo-page';
+          currentPage.innerHTML = '<div class="photo-print-title">Registro fotográfico</div>';
           preview.appendChild(currentPage);
+        } else {
+          currentPage = preview.querySelectorAll('.photo-page')[Math.floor(index / 4)];
         }
 
         const reader = new FileReader();
+
         reader.onload = function(e) {
           const figure = document.createElement('figure');
-          const img = new Image();
+          figure.className = 'photo-item';
 
-          img.onload = function() {
-            const ratio = img.naturalWidth / img.naturalHeight;
-            let orientation = 'square';
-            if (ratio > 1.12) orientation = 'landscape';
-            if (ratio < 0.88) orientation = 'portrait';
+          figure.innerHTML = `
+            <div class="photo-frame">
+              <img src="${e.target.result}" alt="Foto da vistoria ${index + 1}">
+            </div>
+            <textarea class="photo-caption" placeholder="Foto ${String(index + 1).padStart(2, '0')} — ambiente / ocorrência">Foto ${String(index + 1).padStart(2, '0')}</textarea>
+          `;
 
-            figure.className = orientation;
-            figure.innerHTML = `
-              <div class="photo-frame">
-                <img src="${e.target.result}" alt="Foto da vistoria">
-              </div>
-              <figcaption>Foto ${String(index + 1).padStart(2, '0')}</figcaption>
-            `;
-
-            const targetPage = preview.querySelectorAll('.photo-page')[Math.floor(index / 4)];
-            targetPage.appendChild(figure);
-          };
-
-          img.src = e.target.result;
+          const targetPage = preview.querySelectorAll('.photo-page')[Math.floor(index / 4)];
+          targetPage.appendChild(figure);
         };
+
         reader.readAsDataURL(file);
       });
     }
