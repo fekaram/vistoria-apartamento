@@ -390,12 +390,24 @@
     }
 
     .photo-preview {
-      display: block;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
       margin-top: 12px;
     }
 
     .photo-preview figure {
-      margin: 0 0 18px;
+      margin: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      overflow: visible;
+    }
       border: 1px solid var(--border);
       border-radius: 10px;
       background: #fff;
@@ -542,6 +554,21 @@
     }
 
     @media print {
+      .photo-preview {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10mm;
+      }
+
+      .photo-preview figure {
+        margin: 0;
+        padding: 6mm;
+      }
+
+      /* força quebra de página a cada 4 itens */
+      .photo-preview figure:nth-child(4n) {
+        page-break-after: always;
+      }
       @page { size: A4; margin: 10mm; }
 
       body {
