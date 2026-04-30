@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vistoria Técnica Estratégica Pós-Entrega | FKSA</title>
+  <title>Relatório de Vistoria Técnica Pós-Entrega | FKSA</title>
+
   <style>
     :root {
-      --primary: #1e252b;
-      --secondary: #68717a;
-      --accent: #b08d57;
-      --accent-dark: #8b6b3f;
-      --light: #f7f4ef;
+      --primary: #2f3136;
+      --secondary: #7d7470;
+      --accent: #8b7b76;
+      --accent-dark: #5f5653;
+      --light: #f6f3ef;
       --paper: #ffffff;
-      --border: #d8d2c8;
-      --danger: #9f1d1d; 
+      --border: #d9d3ce;
+      --text: #25272b;
+      --muted: #6d7177;
+      --danger: #9f1d1d;
       --ok: #17643b;
       --warning: #986412;
     }
@@ -23,8 +26,8 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      color: var(--primary);
-      background: #ebe7df;
+      color: var(--text);
+      background: #e8e4df;
       line-height: 1.45;
     }
 
@@ -52,7 +55,7 @@
       justify-content: flex-end;
     }
 
-    button, .button-link {
+    button {
       border: 0;
       border-radius: 999px;
       padding: 10px 15px;
@@ -60,15 +63,10 @@
       cursor: pointer;
       background: var(--accent);
       color: #fff;
-      text-decoration: none;
       font-size: 13px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
     }
 
-    button:hover, .button-link:hover { background: var(--accent-dark); }
+    button:hover { background: var(--accent-dark); }
 
     .ghost {
       background: #fff;
@@ -83,182 +81,208 @@
       min-height: 297mm;
       margin: 24px auto;
       background: var(--paper);
-      padding: 20mm 18mm;
+      padding: 18mm 17mm 16mm;
       box-shadow: 0 8px 28px rgba(0,0,0,.12);
       position: relative;
     }
 
     .cover {
+      min-height: 297mm;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 257mm;
-      background: linear-gradient(135deg, #1e252b 0%, #29323a 58%, #15191d 100%);
-      color: #fff;
+      background: linear-gradient(135deg, #ffffff 0%, #f7f5f2 50%, #ece7e2 100%);
       overflow: hidden;
+      padding: 22mm 18mm 18mm;
     }
 
-    .cover::after {
+    .cover::before {
       content: "";
       position: absolute;
-      right: -80px;
-      bottom: -80px;
-      width: 260px;
-      height: 260px;
-      border: 1px solid rgba(176,141,87,.42);
-      border-radius: 50%;
+      inset: 0;
+      background: radial-gradient(circle at 80% 15%, rgba(139,123,118,.12), transparent 34%);
+      pointer-events: none;
     }
 
-    .logo-box {
-      width: 150px;
-      min-height: 72px;
-      border: 1px solid rgba(255,255,255,.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 12px;
-      color: rgba(255,255,255,.82);
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+    .cover-logo {
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
 
     .cover-title {
-      max-width: 620px;
-      margin-top: 58px;
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      border-left: 5px solid var(--accent);
+      padding-left: 22px;
     }
 
     .eyebrow {
-      color: var(--accent);
+      color: var(--accent-dark);
       text-transform: uppercase;
-      letter-spacing: 2.2px;
-      font-size: 12px;
+      letter-spacing: 2px;
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .cover h1 {
-      font-size: 42px;
-      line-height: 1.05;
-      margin: 0 0 18px;
+      font-size: 36px;
+      line-height: 1.08;
+      margin: 0 0 16px;
       text-transform: uppercase;
-      letter-spacing: .5px;
+      letter-spacing: .4px;
+      color: var(--primary);
     }
 
     .cover p {
-      color: rgba(255,255,255,.78);
-      max-width: 560px;
-      font-size: 15px;
+      color: var(--muted);
+      max-width: 570px;
+      font-size: 14px;
+      margin: 0;
     }
 
     .cover-info {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      border-top: 1px solid rgba(255,255,255,.18);
+      gap: 14px;
+      border-top: 1px solid var(--border);
       padding-top: 24px;
+      margin-top: 50px;
     }
 
-    .cover-info div {
-      font-size: 12px;
-      color: rgba(255,255,255,.68);
+    .cover-info-card {
+      background: rgba(255,255,255,.72);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
     }
 
-    .cover-info strong {
+    .cover-info-card span {
       display: block;
-      color: #fff;
+      font-size: 10px;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      margin-bottom: 3px;
+      font-weight: 700;
+    }
+
+    .cover-info-card input {
       font-size: 15px;
-      margin-top: 4px;
+      font-weight: 700;
+      color: var(--primary);
     }
 
-    header {
+    .doc-header {
       display: grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 24px;
+      grid-template-columns: 160px 1fr 185px;
+      gap: 18px;
+      align-items: center;
       border-bottom: 3px solid var(--accent);
-      padding-bottom: 18px;
-      margin-bottom: 24px;
+      padding-bottom: 14px;
+      margin-bottom: 22px;
     }
 
-    .brand h1 {
-      margin: 0 0 8px;
-      font-size: 23px;
+    .header-logo img {
+      width: 100%;
+      max-height: 76px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .header-title h1 {
+      margin: 0 0 4px;
+      font-size: 20px;
       letter-spacing: .3px;
       text-transform: uppercase;
+      color: var(--primary);
     }
 
-    .brand p, .meta p {
+    .header-title p, .meta p {
       margin: 3px 0;
       color: var(--secondary);
-      font-size: 12px;
+      font-size: 11px;
     }
 
-    .meta { text-align: right; font-size: 12px; }
+    .meta {
+      text-align: right;
+      font-size: 11px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
 
     h2 {
-      font-size: 15px;
-      margin: 28px 0 12px;
+      font-size: 14px;
+      margin: 26px 0 12px;
       padding-bottom: 7px;
       border-bottom: 1px solid var(--border);
       text-transform: uppercase;
       letter-spacing: .45px;
+      color: var(--primary);
     }
 
     h3 {
-      font-size: 14px;
+      font-size: 13px;
       margin: 18px 0 8px;
+      color: var(--primary);
     }
 
-    .commercial-card {
+    .intro-card {
       background: var(--light);
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 20px;
-      margin: 18px 0;
+      padding: 18px;
+      margin: 16px 0 22px;
+    }
+
+    .intro-card h2 {
+      border: 0;
+      padding: 0;
+      margin-top: 0;
     }
 
     .benefits {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 16px;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     .benefit {
       background: #fff;
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      font-size: 13px;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 12px;
     }
 
     .benefit strong {
       display: block;
       color: var(--primary);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
-
-    .cta-box {
-      margin-top: 20px;
-      padding: 18px;
-      border-radius: 16px;
-      background: var(--primary);
-      color: #fff;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .cta-box p { margin: 0; color: rgba(255,255,255,.76); font-size: 13px; }
 
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
     label {
       display: block;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--secondary);
       text-transform: uppercase;
@@ -272,27 +296,41 @@
       border-radius: 8px;
       padding: 8px;
       font: inherit;
-      font-size: 13px;
+      font-size: 12px;
       background: #fff;
-      color: var(--primary);
+      color: var(--text);
     }
 
-    textarea { min-height: 76px; resize: vertical; }
+    textarea { min-height: 72px; resize: vertical; }
+
+    .field-box {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px;
+      background: #fff;
+    }
+
+    .field-box input, .field-box textarea, .field-box select {
+      border: 0;
+      padding: 0;
+      border-radius: 0;
+    }
 
     .note {
       background: var(--light);
       border-left: 4px solid var(--accent);
       padding: 12px;
-      font-size: 13px;
+      font-size: 12px;
       color: #3f3f46;
-      margin: 16px 0;
+      margin: 14px 0;
+      border-radius: 0 10px 10px 0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 10px 0 18px;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     th, td {
@@ -304,7 +342,7 @@
     th {
       background: var(--light);
       text-align: left;
-      font-size: 10.5px;
+      font-size: 10px;
       text-transform: uppercase;
       color: var(--secondary);
       letter-spacing: .2px;
@@ -314,11 +352,11 @@
       border: 0;
       padding: 2px;
       border-radius: 0;
-      font-size: 12px;
+      font-size: 11px;
       background: transparent;
     }
 
-    td textarea { min-height: 44px; }
+    td textarea { min-height: 42px; }
 
     .type-toggle {
       display: flex;
@@ -353,7 +391,7 @@
 
     .photo-preview {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin-top: 10px;
     }
@@ -369,7 +407,7 @@
 
     .photo-preview img {
       width: 100%;
-      height: 120px;
+      height: 170px;
       object-fit: cover;
       display: block;
     }
@@ -378,6 +416,7 @@
       font-size: 10px;
       padding: 6px;
       color: var(--secondary);
+      background: #fff;
     }
 
     .signature-pad-wrap {
@@ -385,6 +424,7 @@
       border-radius: 12px;
       padding: 10px;
       background: #fff;
+      margin-top: 14px;
     }
 
     canvas.signature-pad {
@@ -396,21 +436,59 @@
       touch-action: none;
     }
 
-    .signature {
+    .signature-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
+      gap: 30px;
       margin-top: 36px;
     }
 
-    .signature div {
+    .signature-line {
       border-top: 1px solid var(--primary);
       padding-top: 8px;
       text-align: center;
+      font-size: 11px;
+    }
+
+    .technical-branding {
+      margin-top: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: var(--light);
       font-size: 12px;
     }
 
-    .small { font-size: 11px; color: var(--secondary); }
+    .technical-branding strong {
+      display: block;
+      font-size: 13px;
+      color: var(--primary);
+    }
+
+    .footer {
+      position: absolute;
+      left: 17mm;
+      right: 17mm;
+      bottom: 8mm;
+      border-top: 1px solid var(--border);
+      padding-top: 7px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      color: var(--secondary);
+      font-size: 9.5px;
+    }
+
+    .footer img {
+      height: 22px;
+      width: auto;
+      max-width: 100px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .small { font-size: 10.5px; color: var(--secondary); }
     .page-break { page-break-before: always; }
 
     @media (max-width: 900px) {
@@ -422,133 +500,195 @@
         margin: 10px;
         padding: 20px;
       }
-      .cover { min-height: auto; padding-bottom: 34px; }
-      .cover h1 { font-size: 30px; }
-      header, .grid, .grid-3, .benefits, .cover-info, .cta-box, .signature {
+      .cover { min-height: auto; }
+      .cover h1 { font-size: 28px; }
+      .doc-header, .grid, .grid-3, .benefits, .cover-info, .signature-grid {
         grid-template-columns: 1fr;
       }
       .meta { text-align: left; }
-      table { font-size: 11px; }
+      .header-logo img { max-width: 180px; }
+      table { font-size: 10.5px; }
       th, td { padding: 6px; }
       .photo-preview { grid-template-columns: 1fr; }
+      .footer { position: static; margin-top: 28px; }
     }
 
     @media print {
-      @page { margin: 12mm; }
-      body { background: #fff; }
-      .toolbar, .no-print { display: none !important; }
+      @page { size: A4; margin: 10mm; }
+
+      body {
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .toolbar, .no-print, input[type="file"] { display: none !important; }
+
       .page {
         width: auto;
-        min-height: auto;
+        min-height: 277mm;
         margin: 0;
         box-shadow: none;
-        padding: 0;
+        padding: 10mm 8mm 18mm;
+        page-break-after: always;
       }
-      .page + .page { page-break-before: always; }
+
+      .cover {
+        min-height: 277mm;
+        padding: 14mm 10mm 18mm;
+      }
+
       input, textarea, select {
-        border: 0;
-        padding-left: 0;
-        background: transparent;
+        border: 0 !important;
+        background: transparent !important;
+        padding: 0 !important;
         appearance: none;
+        color: var(--text) !important;
+        overflow: visible;
       }
-      table input, table textarea, table select { border: 0; }
-      .photo-block { border: 0; padding: 0; }
-      .commercial-card, .benefit { break-inside: avoid; }
-      canvas.signature-pad { border: 0; }
+
+      textarea {
+        min-height: auto;
+        white-space: pre-wrap;
+      }
+
+      .field-box {
+        border-color: #ebe6e0;
+        background: #fff;
+        break-inside: avoid;
+      }
+
+      table, tr, td, th, .photo-block, .benefit, .intro-card, .technical-branding {
+        break-inside: avoid;
+      }
+
+      .photo-preview {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .photo-preview img {
+        height: 145px;
+      }
+
+      canvas.signature-pad {
+        border: 0;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 6mm;
+        left: 8mm;
+        right: 8mm;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="toolbar no-print">
-    <strong>FKSA | Vistoria Técnica Estratégica Pós-Entrega</strong>
+    <strong>FKSA | Relatório de Vistoria Técnica Pós-Entrega</strong>
     <div class="toolbar-actions">
       <button class="ghost" onclick="generateReportNumber()">Gerar nº</button>
       <button class="ghost" onclick="addOccurrence()">+ Ocorrência</button>
       <button class="ghost" onclick="addPhotoBlock()">+ Fotos</button>
       <button class="ghost" onclick="fillEmailTemplate()">Texto de envio</button>
-      <button onclick="printReport()">Gerar PDF</button>
+      <button onclick="prepareAndPrint()">Gerar PDF</button>
     </div>
   </div>
 
   <main class="page cover">
     <div>
-      <div class="logo-box"><img src="logo-fksa.jpg" alt="FKSA Arquitetura" style="max-width: 100%; height: auto;"></div>
+      <div class="cover-logo">
+        <img src="logo-fksa.jpg" alt="FKSA Arquitetura | Design" />
+      </div>
+
       <section class="cover-title">
         <div class="eyebrow">Serviço técnico premium</div>
-        <h1>Vistoria Técnica Estratégica Pós-Entrega</h1>
-        <p>Uma análise objetiva, documentada e orientada à tomada de decisão para proteger o cliente no recebimento do imóvel, reduzir riscos futuros e fortalecer eventuais solicitações de correção junto à construtora.</p>
+        <h1>Relatório de Vistoria Técnica Pós-Entrega</h1>
+        <p>Documento técnico para registro das condições aparentes do imóvel após entrega da construtora, com identificação de pendências, recomendações de correção e apoio à tomada de decisão do cliente.</p>
       </section>
     </div>
+
     <section class="cover-info">
-      <div>Cliente<strong><input id="coverClient" placeholder="Nome do cliente" oninput="syncCover()" /></strong></div>
-      <div>Empreendimento<strong><input id="coverProject" placeholder="Condomínio / empreendimento" oninput="syncCover()" /></strong></div>
-      <div>Relatório<strong><input id="reportNumber" placeholder="VT-AAAA-MMDD-000" /></strong></div>
-      <div>Data<strong><input id="reportDate" type="date" /></strong></div>
+      <div class="cover-info-card">
+        <span>Cliente</span>
+        <input id="coverClient" placeholder="Nome do cliente" oninput="syncCoverToForm()" />
+      </div>
+      <div class="cover-info-card">
+        <span>Empreendimento</span>
+        <input id="coverProject" placeholder="Condomínio / empreendimento" oninput="syncCoverToForm()" />
+      </div>
+      <div class="cover-info-card">
+        <span>Relatório</span>
+        <input id="reportNumber" placeholder="VT-AAAA-MMDD-000" oninput="syncReportFields()" />
+      </div>
+      <div class="cover-info-card">
+        <span>Data</span>
+        <input id="reportDate" type="date" onchange="syncReportFields()" />
+      </div>
     </section>
   </main>
 
   <main class="page">
-    <header>
-      <section class="brand">
+    <header class="doc-header">
+      <div class="header-logo">
+        <img src="logo-fksa.jpg" alt="FKSA Arquitetura | Design" />
+      </div>
+      <section class="header-title">
         <h1>Relatório de Vistoria Técnica</h1>
         <p>Apartamento após entrega da construtora</p>
-        <p>Documento técnico para registro de condições, não conformidades e recomendações.</p>
+        <p>Registro técnico, fotográfico e recomendações de encaminhamento.</p>
       </section>
       <section class="meta">
-        <p><strong>Escritório:</strong> <input value="FKSA Arquitetura | Design" /></p>
-        <p><strong>Relatório nº:</strong> <input id="reportNumberHeader" placeholder="VT-2026-001" oninput="document.getElementById('reportNumber').value=this.value" /></p>
-        <p><strong>Data:</strong> <input id="reportDateHeader" type="date" onchange="document.getElementById('reportDate').value=this.value" /></p>
+        <p><strong>Relatório nº:</strong><br><input id="reportNumberHeader" placeholder="VT-2026-001" oninput="document.getElementById('reportNumber').value=this.value" /></p>
+        <p><strong>Data:</strong><br><input id="reportDateHeader" type="date" onchange="document.getElementById('reportDate').value=this.value" /></p>
       </section>
     </header>
 
-    <section class="commercial-card">
-      <div class="eyebrow">Por que contratar esta vistoria</div>
-      <h2 style="border:0;margin-top:0;padding:0;">Proteção técnica antes da aceitação definitiva do imóvel</h2>
-      <p>O recebimento das chaves é um momento decisivo. A vistoria técnica organiza evidências, identifica pendências aparentes e ajuda o cliente a conduzir a negociação com a construtora de forma mais segura, clara e documentada.</p>
+    <section class="intro-card">
+      <div class="eyebrow">Objetivo do documento</div>
+      <h2>Proteção técnica no recebimento do imóvel</h2>
+      <p>Esta vistoria organiza, de forma clara e documentada, as condições aparentes observadas no apartamento no momento da visita. O relatório apoia o cliente na solicitação de correções, no acompanhamento de pendências e na decisão sobre o recebimento do imóvel.</p>
       <div class="benefits">
-        <div class="benefit"><strong>Redução de riscos</strong>Registro formal de falhas visíveis antes do uso do imóvel.</div>
-        <div class="benefit"><strong>Mais poder de negociação</strong>Ocorrências descritas com clareza e prioridade de correção.</div>
-        <div class="benefit"><strong>Decisão objetiva</strong>Parecer resumido indicando se o imóvel está apto ao recebimento.</div>
-        <div class="benefit"><strong>Base para projeto futuro</strong>Levantamento inicial útil para interiores, obra e compatibilizações.</div>
-      </div>
-      <div class="cta-box no-print">
-        <div>
-          <strong>Agende uma vistoria técnica</strong>
-          <p>Use este botão para direcionar o cliente ao WhatsApp ou formulário comercial do escritório.</p>
-        </div>
-        <a class="button-link" id="scheduleButton" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20vistoria%20t%C3%A9cnica%20p%C3%B3s-entrega." target="_blank">Agendar vistoria</a>
+        <div class="benefit"><strong>Registro formal</strong>Evidências técnicas e fotográficas das condições encontradas.</div>
+        <div class="benefit"><strong>Priorização</strong>Classificação das ocorrências por gravidade e impacto.</div>
+        <div class="benefit"><strong>Encaminhamento objetivo</strong>Recomendações claras para tratativa com a construtora.</div>
+        <div class="benefit"><strong>Base para projeto futuro</strong>Informações úteis para interiores, obra e compatibilizações.</div>
       </div>
     </section>
 
-    <section>
+    <section class="section">
       <h2>1. Identificação do cliente e do imóvel</h2>
       <div class="grid">
-        <div><label>Cliente</label><input id="clientName" placeholder="Nome completo do cliente" oninput="document.getElementById('coverClient').value=this.value" /></div>
-        <div><label>Telefone / WhatsApp</label><input placeholder="(00) 00000-0000" /></div>
-        <div><label>Empreendimento / Condomínio</label><input id="projectName" placeholder="Nome do empreendimento" oninput="document.getElementById('coverProject').value=this.value" /></div>
-        <div><label>Construtora / Incorporadora</label><input placeholder="Nome da construtora" /></div>
-        <div><label>Endereço</label><input placeholder="Rua, número, bairro, cidade" /></div>
-        <div><label>Unidade</label><input placeholder="Torre, bloco, andar e apartamento" /></div>
-        <div><label>Área privativa aproximada</label><input placeholder="Ex.: 125 m²" /></div>
-        <div><label>Data de entrega das chaves</label><input type="date" /></div>
+        <div class="field-box"><label>Cliente</label><input id="clientName" placeholder="Nome completo do cliente" oninput="document.getElementById('coverClient').value=this.value" /></div>
+        <div class="field-box"><label>Telefone / WhatsApp</label><input placeholder="(00) 00000-0000" /></div>
+        <div class="field-box"><label>Empreendimento / Condomínio</label><input id="projectName" placeholder="Nome do empreendimento" oninput="document.getElementById('coverProject').value=this.value" /></div>
+        <div class="field-box"><label>Construtora / Incorporadora</label><input placeholder="Nome da construtora" /></div>
+        <div class="field-box"><label>Endereço</label><input placeholder="Rua, número, bairro, cidade" /></div>
+        <div class="field-box"><label>Unidade</label><input placeholder="Torre, bloco, andar e apartamento" /></div>
+        <div class="field-box"><label>Área privativa aproximada</label><input placeholder="Ex.: 125 m²" /></div>
+        <div class="field-box"><label>Data de entrega das chaves</label><input type="date" /></div>
       </div>
     </section>
 
-    <section>
+    <section class="section">
       <h2>2. Perfil da vistoria</h2>
-      <p class="small">Selecione a tipologia para orientar o nível de rigor do checklist e a linguagem do parecer.</p>
+      <p class="small">Selecione a tipologia para ajustar o enfoque técnico do parecer.</p>
       <div class="type-toggle no-print">
         <span class="pill active" onclick="setInspectionType(this, 'padrao')">Padrão</span>
         <span class="pill" onclick="setInspectionType(this, 'alto')">Alto padrão</span>
         <span class="pill" onclick="setInspectionType(this, 'investidor')">Investidor</span>
       </div>
-      <textarea id="inspectionObjective">Registrar tecnicamente as condições aparentes do apartamento no momento da vistoria pós-entrega, identificando eventuais não conformidades visíveis, pendências de acabamento, problemas de funcionamento e pontos que demandam correção pela construtora ou análise complementar especializada.</textarea>
+      <div class="field-box">
+        <label>Objetivo específico</label>
+        <textarea id="inspectionObjective">Registrar tecnicamente as condições aparentes do apartamento no momento da vistoria pós-entrega, identificando eventuais não conformidades visíveis, pendências de acabamento, problemas de funcionamento e pontos que demandam correção pela construtora ou análise complementar especializada.</textarea>
+      </div>
     </section>
 
-    <section>
+    <section class="section">
       <h2>3. Critérios de avaliação</h2>
       <table>
-        <thead><tr><th style="width: 28%">Critério</th><th>Descrição</th></tr></thead>
+        <thead><tr><th style="width: 26%">Critério</th><th>Descrição</th></tr></thead>
         <tbody>
           <tr><td><strong>Aprovado</strong></td><td>Item vistoriado sem inconsistências aparentes no momento da avaliação.</td></tr>
           <tr><td><strong>Com ressalva</strong></td><td>Item funcional, porém com observação, imperfeição estética, ajuste recomendado ou necessidade de acompanhamento.</td></tr>
@@ -558,11 +698,25 @@
       </table>
     </section>
 
-    <section>
+    <div class="footer">
+      <span>FKSA Arquitetura | Design — Relatório de Vistoria Técnica Pós-Entrega</span>
+      <img src="logo-fksa.jpg" alt="FKSA" />
+    </div>
+  </main>
+
+  <main class="page">
+    <header class="doc-header">
+      <div class="header-logo"><img src="logo-fksa.jpg" alt="FKSA Arquitetura | Design" /></div>
+      <section class="header-title"><h1>Checklist técnico</h1><p>Avaliação visual por ambiente e sistema aparente.</p></section>
+      <section class="meta"><p><strong>Relatório nº:</strong><br><input class="reportMirror" placeholder="VT-2026-001" /></p></section>
+    </header>
+
+    <section class="section">
       <h2>4. Checklist técnico por ambiente</h2>
+
       <h3>4.1 Áreas secas: sala, quartos, circulação e varanda</h3>
       <table>
-        <thead><tr><th>Item</th><th>Status</th><th>Observações</th></tr></thead>
+        <thead><tr><th>Item</th><th style="width: 20%">Status</th><th>Observações</th></tr></thead>
         <tbody>
           <tr><td>Piso: nivelamento, peças ocas, riscos, manchas, paginação e rejuntes</td><td><select><option>Aprovado</option><option>Com ressalva</option><option>Reprovado / corrigir</option><option>Não verificado</option></select></td><td><textarea></textarea></td></tr>
           <tr><td>Paredes: prumo aparente, pintura, fissuras, ondulações e manchas</td><td><select><option>Aprovado</option><option>Com ressalva</option><option>Reprovado / corrigir</option><option>Não verificado</option></select></td><td><textarea></textarea></td></tr>
@@ -572,9 +726,10 @@
           <tr><td>Tomadas, interruptores, pontos de dados/TV e quadro elétrico</td><td><select><option>Aprovado</option><option>Com ressalva</option><option>Reprovado / corrigir</option><option>Não verificado</option></select></td><td><textarea></textarea></td></tr>
         </tbody>
       </table>
+
       <h3>4.2 Áreas molhadas: cozinha, área de serviço, banheiros e lavabo</h3>
       <table>
-        <thead><tr><th>Item</th><th>Status</th><th>Observações</th></tr></thead>
+        <thead><tr><th>Item</th><th style="width: 20%">Status</th><th>Observações</th></tr></thead>
         <tbody>
           <tr><td>Revestimentos: assentamento, paginação, rejunte, caimento e arremates</td><td><select><option>Aprovado</option><option>Com ressalva</option><option>Reprovado / corrigir</option><option>Não verificado</option></select></td><td><textarea></textarea></td></tr>
           <tr><td>Bancadas, cubas, metais, sifões, válvulas e registros</td><td><select><option>Aprovado</option><option>Com ressalva</option><option>Reprovado / corrigir</option><option>Não verificado</option></select></td><td><textarea></textarea></td></tr>
@@ -586,12 +741,12 @@
       </table>
     </section>
 
-    <section>
+    <section class="section">
       <h2>5. Ocorrências identificadas</h2>
       <p class="small">Registre os pontos que exigem correção, acompanhamento ou ressalva formal.</p>
       <table id="occurrenceTable">
         <thead>
-          <tr><th style="width: 5%">Nº</th><th style="width: 17%">Ambiente</th><th>Descrição da ocorrência</th><th style="width: 18%">Gravidade</th><th>Recomendação</th></tr>
+          <tr><th style="width: 5%">Nº</th><th style="width: 17%">Ambiente</th><th>Descrição da ocorrência</th><th style="width: 16%">Gravidade</th><th>Recomendação</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -605,26 +760,39 @@
       </table>
     </section>
 
-    <section>
+    <div class="footer">
+      <span>Responsável técnico: Felipe Karam Coelho Calvo — CAU A67536-9</span>
+      <img src="logo-fksa.jpg" alt="FKSA" />
+    </div>
+  </main>
+
+  <main class="page">
+    <header class="doc-header">
+      <div class="header-logo"><img src="logo-fksa.jpg" alt="FKSA Arquitetura | Design" /></div>
+      <section class="header-title"><h1>Registro fotográfico e parecer</h1><p>Evidências, conclusão técnica e encaminhamentos recomendados.</p></section>
+      <section class="meta"><p><strong>Relatório nº:</strong><br><input class="reportMirror" placeholder="VT-2026-001" /></p></section>
+    </header>
+
+    <section class="section">
       <h2>6. Registro fotográfico</h2>
       <p class="small">Anexe fotos por ambiente ou por ocorrência. As imagens serão incorporadas ao relatório antes da geração do PDF.</p>
       <div id="photoContainer">
         <div class="photo-block">
           <div class="grid-3">
-            <div><label>Ambiente / ocorrência</label><input placeholder="Ex.: Cozinha - Ocorrência 01" /></div>
-            <div><label>Responsável pelo registro</label><input placeholder="Nome" /></div>
-            <div><label>Fotos</label><input type="file" accept="image/*" multiple onchange="previewPhotos(this)" /></div>
+            <div class="field-box"><label>Ambiente / ocorrência</label><input placeholder="Ex.: Cozinha - Ocorrência 01" /></div>
+            <div class="field-box"><label>Responsável pelo registro</label><input placeholder="Nome" /></div>
+            <div class="field-box no-print"><label>Fotos</label><input type="file" accept="image/*" multiple onchange="previewPhotos(this)" /></div>
           </div>
-          <textarea placeholder="Legenda geral ou observações das imagens."></textarea>
+          <div class="field-box" style="margin-top:10px;"><label>Legenda geral / observações</label><textarea placeholder="Legenda geral ou observações das imagens."></textarea></div>
           <div class="photo-preview"></div>
         </div>
       </div>
     </section>
 
-    <section>
+    <section class="section">
       <h2>7. Parecer técnico resumido</h2>
       <div class="grid">
-        <div>
+        <div class="field-box">
           <label>Condição geral do imóvel</label>
           <select id="generalCondition">
             <option>Apto para recebimento, sem ressalvas relevantes</option>
@@ -633,24 +801,27 @@
             <option>Necessita análise técnica complementar</option>
           </select>
         </div>
-        <div>
+        <div class="field-box">
           <label>Prioridade de encaminhamento</label>
           <select><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select>
         </div>
       </div>
-      <textarea id="technicalOpinion" placeholder="Síntese técnica: principais achados, riscos ao cliente e recomendação objetiva para negociação/correção junto à construtora."></textarea>
+      <div class="field-box" style="margin-top:12px;">
+        <label>Síntese técnica</label>
+        <textarea id="technicalOpinion" placeholder="Síntese técnica: principais achados, riscos ao cliente e recomendação objetiva para negociação/correção junto à construtora."></textarea>
+      </div>
     </section>
 
-    <section>
+    <section class="section">
       <h2>8. Limitações da vistoria</h2>
       <div class="note">Esta vistoria é visual e não destrutiva, realizada com base nas condições aparentes do imóvel no momento da visita. Não substitui ensaios laboratoriais, testes especializados, laudos estruturais, laudos elétricos, laudos hidráulicos, perícias judiciais ou análise de sistemas ocultos, salvo contratação específica.</div>
-      <textarea placeholder="Inclua limitações específicas: falta de energia, água, gás, ausência de manuais, ambientes inacessíveis, equipamentos não instalados etc."></textarea>
+      <div class="field-box"><label>Limitações específicas</label><textarea placeholder="Inclua limitações específicas: falta de energia, água, gás, ausência de manuais, ambientes inacessíveis, equipamentos não instalados etc."></textarea></div>
     </section>
 
-    <section>
+    <section class="section">
       <h2>9. Encaminhamentos recomendados</h2>
       <table>
-        <thead><tr><th>Encaminhamento</th><th>Responsável sugerido</th><th>Prazo sugerido</th></tr></thead>
+        <thead><tr><th>Encaminhamento</th><th style="width:24%">Responsável sugerido</th><th style="width:20%">Prazo sugerido</th></tr></thead>
         <tbody>
           <tr><td><textarea placeholder="Ex.: Solicitar correção dos rejuntes manchados no banheiro social."></textarea></td><td><input placeholder="Construtora" /></td><td><input placeholder="Ex.: 7 dias úteis" /></td></tr>
           <tr><td><textarea placeholder="Ex.: Reagendar vistoria após correções."></textarea></td><td><input placeholder="Cliente / Escritório" /></td><td><input placeholder="Ex.: após retorno da construtora" /></td></tr>
@@ -658,26 +829,30 @@
       </table>
     </section>
 
-    <section>
-      <h2>10. Assinatura digital</h2>
-      <div class="grid">
-        <div><label>Responsável técnico / escritório</label><input placeholder="Nome e registro profissional, se aplicável" /></div>
-        <div><label>Cliente / representante</label><input placeholder="Nome completo" /></div>
+    <section class="section">
+      <h2>10. Responsabilidade técnica e assinatura</h2>
+      <div class="technical-branding">
+        <strong>Felipe Karam Coelho Calvo</strong>
+        Arquiteto e Urbanista — CAU A67536-9<br>
+        FKSA Arquitetura | Design
       </div>
-      <div class="signature-pad-wrap no-print" style="margin-top:14px;">
+
+      <div class="signature-pad-wrap no-print">
         <label>Assinatura na tela</label>
         <canvas id="signaturePad" class="signature-pad"></canvas>
         <button class="ghost" type="button" onclick="clearSignature()" style="margin-top:8px;">Limpar assinatura</button>
       </div>
-      <div class="signature">
-        <div>Responsável pela vistoria</div>
-        <div>Cliente / representante</div>
+
+      <div class="signature-grid">
+        <div class="signature-line">Felipe Karam Coelho Calvo<br>Arquiteto e Urbanista — CAU A67536-9</div>
+        <div class="signature-line">Cliente / representante</div>
       </div>
     </section>
 
-    <section class="no-print">
+    <section class="section no-print">
       <h2>11. Padrão de envio ao cliente</h2>
-      <textarea id="emailTemplate" style="min-height:160px;">Olá, [NOME DO CLIENTE].
+      <div class="field-box">
+        <textarea id="emailTemplate" style="min-height:160px;">Olá, [NOME DO CLIENTE].
 
 Conforme vistoria realizada no imóvel [EMPREENDIMENTO / UNIDADE], encaminhamos em anexo o Relatório de Vistoria Técnica Pós-Entrega.
 
@@ -686,9 +861,17 @@ O documento reúne os principais pontos observados, registros fotográficos, cla
 Recomendamos que as pendências sejam protocoladas formalmente junto à construtora/incorporadora, mantendo este relatório como apoio técnico para acompanhamento das correções.
 
 Atenciosamente,
+Felipe Karam Coelho Calvo
+Arquiteto e Urbanista — CAU A67536-9
 FKSA Arquitetura | Design</textarea>
-      <button class="ghost" onclick="copyEmailTemplate()">Copiar texto de envio</button>
+      </div>
+      <button class="ghost" onclick="copyEmailTemplate()" style="margin-top:10px;">Copiar texto de envio</button>
     </section>
+
+    <div class="footer">
+      <span>FKSA Arquitetura | Design — Relatório emitido por Felipe Karam Coelho Calvo — CAU A67536-9</span>
+      <img src="logo-fksa.jpg" alt="FKSA" />
+    </div>
   </main>
 
   <script>
@@ -701,14 +884,25 @@ FKSA Arquitetura | Design</textarea>
       const number = `VT-${yyyy}${mm}${dd}-${random}`;
       document.getElementById('reportNumber').value = number;
       document.getElementById('reportNumberHeader').value = number;
+      document.querySelectorAll('.reportMirror').forEach(el => el.value = number);
       const date = `${yyyy}-${mm}-${dd}`;
       document.getElementById('reportDate').value = date;
       document.getElementById('reportDateHeader').value = date;
     }
 
-    function printReport() {
+    function syncReportFields() {
+      const number = document.getElementById('reportNumber').value;
+      const date = document.getElementById('reportDate').value;
+      document.getElementById('reportNumberHeader').value = number;
+      document.getElementById('reportDateHeader').value = date;
+      document.querySelectorAll('.reportMirror').forEach(el => el.value = number);
+    }
+
+    function prepareAndPrint() {
+      syncReportFields();
       const number = document.getElementById('reportNumber').value || 'VT-sem-numero';
-      document.title = `${number} - Relatorio de Vistoria Tecnica - FKSA`;
+      const client = document.getElementById('clientName').value || 'Cliente';
+      document.title = `${number} - Relatorio de Vistoria Tecnica - ${client} - FKSA`;
       window.print();
     }
 
@@ -724,7 +918,7 @@ FKSA Arquitetura | Design</textarea>
       const container = document.getElementById('photoContainer');
       const block = document.createElement('div');
       block.className = 'photo-block';
-      block.innerHTML = `<div class="grid-3"><div><label>Ambiente / ocorrência</label><input placeholder="Ex.: Cozinha - Ocorrência 02" /></div><div><label>Responsável pelo registro</label><input placeholder="Nome" /></div><div><label>Fotos</label><input type="file" accept="image/*" multiple onchange="previewPhotos(this)" /></div></div><textarea placeholder="Legenda geral ou observações das imagens."></textarea><div class="photo-preview"></div>`;
+      block.innerHTML = `<div class="grid-3"><div class="field-box"><label>Ambiente / ocorrência</label><input placeholder="Ex.: Cozinha - Ocorrência 02" /></div><div class="field-box"><label>Responsável pelo registro</label><input placeholder="Nome" /></div><div class="field-box no-print"><label>Fotos</label><input type="file" accept="image/*" multiple onchange="previewPhotos(this)" /></div></div><div class="field-box" style="margin-top:10px;"><label>Legenda geral / observações</label><textarea placeholder="Legenda geral ou observações das imagens."></textarea></div><div class="photo-preview"></div>`;
       container.appendChild(block);
     }
 
@@ -749,7 +943,7 @@ FKSA Arquitetura | Design</textarea>
       const opinion = document.getElementById('technicalOpinion');
       if (type === 'alto') {
         objective.value = 'Realizar vistoria técnica com nível ampliado de rigor visual e acabamento, considerando padrão de entrega, alinhamentos, arremates, paginação, funcionamento dos sistemas aparentes e coerência entre memorial descritivo, áreas entregues e expectativa de uso do imóvel de alto padrão.';
-        opinion.placeholder = 'Inclua uma leitura mais criteriosa sobre acabamento, experiência de uso, impacto estético, riscos de retrabalho e pontos que podem comprometer a valorização percebida do imóvel.';
+        opinion.placeholder = 'Inclua uma leitura criteriosa sobre acabamento, experiência de uso, impacto estético, riscos de retrabalho e pontos que podem comprometer a valorização percebida do imóvel.';
       } else if (type === 'investidor') {
         objective.value = 'Avaliar as condições aparentes do imóvel com foco em recebimento seguro, redução de passivos, previsibilidade de custos de correção e preservação do potencial de locação, venda ou valorização patrimonial.';
         opinion.placeholder = 'Destaque riscos de custo, prazo, manutenção, locação, revenda e necessidade de correção antes da disponibilização do imóvel ao mercado.';
@@ -762,7 +956,7 @@ FKSA Arquitetura | Design</textarea>
     function fillEmailTemplate() {
       const client = document.getElementById('clientName').value || '[NOME DO CLIENTE]';
       const project = document.getElementById('projectName').value || '[EMPREENDIMENTO / UNIDADE]';
-      document.getElementById('emailTemplate').value = `Olá, ${client}.\n\nConforme vistoria realizada no imóvel ${project}, encaminhamos em anexo o Relatório de Vistoria Técnica Pós-Entrega.\n\nO documento reúne os principais pontos observados, registros fotográficos, classificação das ocorrências e recomendações de encaminhamento junto à construtora.\n\nRecomendamos que as pendências sejam protocoladas formalmente junto à construtora/incorporadora, mantendo este relatório como apoio técnico para acompanhamento das correções.\n\nAtenciosamente,\nFKSA Arquitetura | Design`;
+      document.getElementById('emailTemplate').value = `Olá, ${client}.\n\nConforme vistoria realizada no imóvel ${project}, encaminhamos em anexo o Relatório de Vistoria Técnica Pós-Entrega.\n\nO documento reúne os principais pontos observados, registros fotográficos, classificação das ocorrências e recomendações de encaminhamento junto à construtora.\n\nRecomendamos que as pendências sejam protocoladas formalmente junto à construtora/incorporadora, mantendo este relatório como apoio técnico para acompanhamento das correções.\n\nAtenciosamente,\nFelipe Karam Coelho Calvo\nArquiteto e Urbanista — CAU A67536-9\nFKSA Arquitetura | Design`;
       document.getElementById('emailTemplate').scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -773,7 +967,7 @@ FKSA Arquitetura | Design</textarea>
       alert('Texto de envio copiado.');
     }
 
-    function syncCover() {
+    function syncCoverToForm() {
       document.getElementById('clientName').value = document.getElementById('coverClient').value;
       document.getElementById('projectName').value = document.getElementById('coverProject').value;
     }
@@ -787,10 +981,11 @@ FKSA Arquitetura | Design</textarea>
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * ratio;
       canvas.height = rect.height * ratio;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(ratio, ratio);
       ctx.lineWidth = 2;
       ctx.lineCap = 'round';
-      ctx.strokeStyle = '#1e252b';
+      ctx.strokeStyle = '#2f3136';
     }
 
     function getPos(e) {
