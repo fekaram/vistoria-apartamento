@@ -975,6 +975,197 @@
         resize: none !important;
       }
     }
+  
+    /* ===== REGISTRO FOTOGRÁFICO - VERSÃO FINAL 2x2 =====
+       Cada foto vira um card: imagem + campos abaixo.
+       No PDF: 4 cards por página, 2 por linha, sem elementos extras dentro da grade.
+    */
+
+    .photo-preview {
+      display: block !important;
+      margin-top: 16px !important;
+    }
+
+    .photo-page {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 14px !important;
+      margin: 16px 0 24px !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    .photo-item {
+      border: 1px solid var(--border) !important;
+      border-radius: 10px !important;
+      background: #fff !important;
+      padding: 10px !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+      overflow: hidden !important;
+    }
+
+    .photo-frame {
+      width: 100% !important;
+      height: 180px !important;
+      background: #f8f6f3 !important;
+      border-radius: 6px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+
+    .photo-frame img {
+      display: block !important;
+      width: auto !important;
+      height: auto !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      object-position: center center !important;
+    }
+
+    .photo-fields {
+      margin-top: 8px !important;
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 6px !important;
+    }
+
+    .photo-fields label {
+      font-size: 8.5px !important;
+      margin-bottom: 2px !important;
+    }
+
+    .photo-fields input,
+    .photo-fields textarea {
+      width: 100% !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 6px !important;
+      padding: 5px !important;
+      font-size: 10px !important;
+      line-height: 1.25 !important;
+      background: #fff !important;
+    }
+
+    .photo-fields textarea {
+      min-height: 34px !important;
+      resize: vertical !important;
+    }
+
+    @media print {
+      /* Esconde apenas os campos gerais do bloco, mantendo os campos individuais abaixo de cada foto */
+      .photo-block > .grid-3,
+      .photo-block > .field-box,
+      .photo-block input[type="file"] {
+        display: none !important;
+      }
+
+      .photo-preview {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .photo-page {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: repeat(2, 1fr) !important;
+        gap: 6mm !important;
+        width: 100% !important;
+        height: 232mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        page-break-before: always !important;
+        break-before: page !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .photo-page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+
+      .photo-item {
+        height: 113mm !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 4mm !important;
+        border: 1px solid #ddd6cf !important;
+        border-radius: 8px !important;
+        background: #fff !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        overflow: hidden !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .photo-frame {
+        height: 80mm !important;
+        min-height: 80mm !important;
+        max-height: 80mm !important;
+        width: 100% !important;
+        background: #fff !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .photo-frame img {
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+      }
+
+      .photo-fields {
+        margin-top: 3mm !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.6mm !important;
+      }
+
+      .photo-fields label {
+        display: none !important;
+      }
+
+      .photo-fields input,
+      .photo-fields textarea {
+        border: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        font-size: 8.5px !important;
+        line-height: 1.2 !important;
+        color: var(--secondary) !important;
+        overflow: hidden !important;
+        resize: none !important;
+      }
+
+      .photo-fields input {
+        height: 4mm !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+      }
+
+      .photo-fields textarea {
+        height: 10mm !important;
+        min-height: 10mm !important;
+        max-height: 10mm !important;
+        text-align: center !important;
+      }
+    }
   </style>
 </head>
 
@@ -1324,15 +1515,13 @@ FKSA Arquitetura | Design</textarea>
       const files = Array.from(input.files);
 
       files.forEach((file, index) => {
-        let currentPage;
+        const pageIndex = Math.floor(index / 4);
+        let currentPage = preview.querySelectorAll('.photo-page')[pageIndex];
 
-        if (index % 4 === 0) {
+        if (!currentPage) {
           currentPage = document.createElement('div');
           currentPage.className = 'photo-page';
-          currentPage.innerHTML = '<div class="photo-print-title">Registro fotográfico</div>';
           preview.appendChild(currentPage);
-        } else {
-          currentPage = preview.querySelectorAll('.photo-page')[Math.floor(index / 4)];
         }
 
         const reader = new FileReader();
@@ -1345,10 +1534,19 @@ FKSA Arquitetura | Design</textarea>
             <div class="photo-frame">
               <img src="${e.target.result}" alt="Foto da vistoria ${index + 1}">
             </div>
-            <textarea class="photo-caption" placeholder="Foto ${String(index + 1).padStart(2, '0')} — ambiente / ocorrência">Foto ${String(index + 1).padStart(2, '0')}</textarea>
+            <div class="photo-fields">
+              <div>
+                <label>Identificação da foto</label>
+                <input value="Foto ${String(index + 1).padStart(2, '0')}" placeholder="Foto ${String(index + 1).padStart(2, '0')} — ambiente / ocorrência">
+              </div>
+              <div>
+                <label>Observação</label>
+                <textarea placeholder="Descreva o ambiente, ocorrência ou recomendação relacionada à foto."></textarea>
+              </div>
+            </div>
           `;
 
-          const targetPage = preview.querySelectorAll('.photo-page')[Math.floor(index / 4)];
+          const targetPage = preview.querySelectorAll('.photo-page')[pageIndex];
           targetPage.appendChild(figure);
         };
 
