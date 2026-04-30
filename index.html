@@ -16,9 +16,6 @@
       --border: #d9d3ce;
       --text: #25272b;
       --muted: #6d7177;
-      --danger: #9f1d1d;
-      --ok: #17643b;
-      --warning: #986412;
     }
 
     * { box-sizing: border-box; }
@@ -42,18 +39,11 @@
       justify-content: space-between;
       gap: 12px;
       align-items: center;
-      backdrop-filter: blur(8px);
       box-shadow: 0 4px 18px rgba(0,0,0,.06);
     }
 
     .toolbar strong { font-size: 14px; }
-
-    .toolbar-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
+    .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
     button {
       border: 0;
@@ -67,13 +57,7 @@
     }
 
     button:hover { background: var(--accent-dark); }
-
-    .ghost {
-      background: #fff;
-      color: var(--primary);
-      border: 1px solid var(--border);
-    }
-
+    .ghost { background: #fff; color: var(--primary); border: 1px solid var(--border); }
     .ghost:hover { background: var(--light); }
 
     .page {
@@ -81,7 +65,7 @@
       min-height: 297mm;
       margin: 24px auto;
       background: var(--paper);
-      padding: 18mm 17mm 16mm;
+      padding: 18mm 17mm 18mm;
       box-shadow: 0 8px 28px rgba(0,0,0,.12);
       position: relative;
     }
@@ -92,69 +76,18 @@
       flex-direction: column;
       justify-content: space-between;
       background: linear-gradient(135deg, #ffffff 0%, #f7f5f2 50%, #ece7e2 100%);
-      overflow: hidden;
       padding: 22mm 18mm 18mm;
     }
 
-    .cover::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 80% 15%, rgba(139,123,118,.12), transparent 34%);
-      pointer-events: none;
-    }
+    .cover-logo { width: 100%; max-width: 620px; margin: 0 auto 56px; }
+    .cover-logo img { width: 100%; height: auto; display: block; object-fit: contain; }
 
-    .cover-logo {
-      width: 100%;
-      max-width: 620px;
-      margin: 0 auto 56px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cover-logo img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-    }
-
-    .cover-title {
-      position: relative;
-      z-index: 1;
-      max-width: 640px;
-      border-left: 5px solid var(--accent);
-      padding-left: 22px;
-    }
-
-    .eyebrow {
-      color: var(--accent-dark);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .cover h1 {
-      font-size: 36px;
-      line-height: 1.08;
-      margin: 0 0 16px;
-      text-transform: uppercase;
-      letter-spacing: .4px;
-      color: var(--primary);
-    }
-
-    .cover p {
-      color: var(--muted);
-      max-width: 570px;
-      font-size: 14px;
-      margin: 0;
-    }
+    .cover-title { max-width: 640px; border-left: 5px solid var(--accent); padding-left: 22px; }
+    .eyebrow { color: var(--accent-dark); text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 700; margin-bottom: 14px; }
+    .cover h1 { font-size: 36px; line-height: 1.08; margin: 0 0 16px; text-transform: uppercase; letter-spacing: .4px; color: var(--primary); }
+    .cover p { color: var(--muted); max-width: 570px; font-size: 14px; margin: 0; }
 
     .cover-info {
-      position: relative;
-      z-index: 1;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 14px;
@@ -163,28 +96,9 @@
       margin-top: 50px;
     }
 
-    .cover-info-card {
-      background: rgba(255,255,255,.72);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px;
-    }
-
-    .cover-info-card span {
-      display: block;
-      font-size: 10px;
-      color: var(--secondary);
-      text-transform: uppercase;
-      letter-spacing: .4px;
-      margin-bottom: 3px;
-      font-weight: 700;
-    }
-
-    .cover-info-card input {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--primary);
-    }
+    .cover-info-card { background: rgba(255,255,255,.72); border: 1px solid var(--border); border-radius: 14px; padding: 12px; }
+    .cover-info-card span { display: block; font-size: 10px; color: var(--secondary); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 3px; font-weight: 700; }
+    .cover-info-card input { font-size: 15px; font-weight: 700; color: var(--primary); }
 
     .doc-header {
       display: grid;
@@ -196,99 +110,24 @@
       margin-bottom: 22px;
     }
 
-    .header-logo img {
-      width: 100%;
-      max-height: 76px;
-      object-fit: contain;
-      display: block;
-    }
+    .header-logo img { width: 100%; max-height: 76px; object-fit: contain; display: block; }
+    .header-title h1 { margin: 0 0 4px; font-size: 20px; letter-spacing: .3px; text-transform: uppercase; color: var(--primary); }
+    .header-title p, .meta p { margin: 3px 0; color: var(--secondary); font-size: 11px; }
+    .meta { text-align: right; font-size: 11px; }
 
-    .header-title h1 {
-      margin: 0 0 4px;
-      font-size: 20px;
-      letter-spacing: .3px;
-      text-transform: uppercase;
-      color: var(--primary);
-    }
+    h2 { font-size: 14px; margin: 26px 0 12px; padding-bottom: 7px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: .45px; color: var(--primary); }
+    h3 { font-size: 13px; margin: 18px 0 8px; color: var(--primary); }
 
-    .header-title p, .meta p {
-      margin: 3px 0;
-      color: var(--secondary);
-      font-size: 11px;
-    }
-
-    .meta {
-      text-align: right;
-      font-size: 11px;
-    }
-
-    .section {
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      font-size: 14px;
-      margin: 26px 0 12px;
-      padding-bottom: 7px;
-      border-bottom: 1px solid var(--border);
-      text-transform: uppercase;
-      letter-spacing: .45px;
-      color: var(--primary);
-    }
-
-    h3 {
-      font-size: 13px;
-      margin: 18px 0 8px;
-      color: var(--primary);
-    }
-
-    .intro-card {
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      margin: 16px 0 22px;
-    }
-
-    .intro-card h2 {
-      border: 0;
-      padding: 0;
-      margin-top: 0;
-    }
-
-    .benefits {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .benefit {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      font-size: 12px;
-    }
-
-    .benefit strong {
-      display: block;
-      color: var(--primary);
-      margin-bottom: 3px;
-    }
+    .intro-card { background: var(--light); border: 1px solid var(--border); border-radius: 18px; padding: 18px; margin: 16px 0 22px; }
+    .intro-card h2 { border: 0; padding: 0; margin-top: 0; }
+    .benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+    .benefit { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; font-size: 12px; }
+    .benefit strong { display: block; color: var(--primary); margin-bottom: 3px; }
 
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
-    label {
-      display: block;
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--secondary);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-      letter-spacing: .3px;
-    }
+    label { display: block; font-size: 10px; font-weight: 700; color: var(--secondary); text-transform: uppercase; margin-bottom: 4px; letter-spacing: .3px; }
 
     input, textarea, select {
       width: 100%;
@@ -303,416 +142,41 @@
 
     textarea { min-height: 72px; resize: vertical; }
 
-    .field-box {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 9px;
-      background: #fff;
-    }
+    .field-box { border: 1px solid var(--border); border-radius: 10px; padding: 9px; background: #fff; }
+    .field-box input, .field-box textarea, .field-box select { border: 0; padding: 0; border-radius: 0; }
 
-    .field-box input, .field-box textarea, .field-box select {
-      border: 0;
-      padding: 0;
-      border-radius: 0;
-    }
+    .note { background: var(--light); border-left: 4px solid var(--accent); padding: 12px; font-size: 12px; color: #3f3f46; margin: 14px 0; border-radius: 0 10px 10px 0; }
 
-    .note {
-      background: var(--light);
-      border-left: 4px solid var(--accent);
-      padding: 12px;
-      font-size: 12px;
-      color: #3f3f46;
-      margin: 14px 0;
-      border-radius: 0 10px 10px 0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 10px 0 18px;
-      font-size: 11px;
-    }
-
-    th, td {
-      border: 1px solid var(--border);
-      padding: 7px;
-      vertical-align: top;
-    }
-
-    th {
-      background: var(--light);
-      text-align: left;
-      font-size: 10px;
-      text-transform: uppercase;
-      color: var(--secondary);
-      letter-spacing: .2px;
-    }
-
-    td select, td input, td textarea {
-      border: 0;
-      padding: 2px;
-      border-radius: 0;
-      font-size: 11px;
-      background: transparent;
-    }
-
+    table { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 11px; }
+    th, td { border: 1px solid var(--border); padding: 7px; vertical-align: top; }
+    th { background: var(--light); text-align: left; font-size: 10px; text-transform: uppercase; color: var(--secondary); letter-spacing: .2px; }
+    td select, td input, td textarea { border: 0; padding: 2px; border-radius: 0; font-size: 11px; background: transparent; }
     td textarea { min-height: 42px; }
 
-    .type-toggle {
-      display: flex;
-      gap: 8px;
-      margin: 12px 0 18px;
-      flex-wrap: wrap;
-    }
+    .type-toggle { display: flex; gap: 8px; margin: 12px 0 18px; flex-wrap: wrap; }
+    .pill { border: 1px solid var(--border); border-radius: 999px; padding: 8px 12px; font-size: 12px; cursor: pointer; background: #fff; }
+    .pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    .pill {
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      cursor: pointer;
-      background: #fff;
-    }
-
-    .pill.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    .photo-block {
-      border: 1px dashed var(--border);
-      border-radius: 14px;
-      padding: 12px;
-      margin-bottom: 14px;
-      break-inside: avoid;
-      background: #fff;
-    }
+    .photo-block { border: 1px dashed var(--border); border-radius: 14px; padding: 12px; margin-bottom: 14px; background: #fff; }
+    .photo-instructions { font-size: 11px; color: var(--secondary); margin: 0 0 10px; }
 
     .photo-preview {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 12px;
-    }
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
-    .photo-preview figure {
-      margin: 0;
+    .photo-card {
       border: 1px solid var(--border);
       border-radius: 10px;
-      background: #fff;
       padding: 10px;
-      break-inside: avoid;
-      page-break-inside: avoid;
-      overflow: visible;
-    }
-      border: 1px solid var(--border);
-      border-radius: 10px;
       background: #fff;
-      padding: 10px;
-      break-inside: avoid;
-      page-break-inside: avoid;
-      overflow: visible;
     }
 
     .photo-frame {
       width: 100%;
-      background: #fff;
-      border-radius: 6px;
-      text-align: center;
-      overflow: visible;
-    }
-
-    .photo-frame img {
-      display: block;
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: none;
-      margin: 0 auto;
-      object-fit: unset;
-    }
-
-    .photo-preview figure.landscape .photo-frame img {
-      width: 100%;
-      height: auto;
-    }
-
-    .photo-preview figure.portrait .photo-frame img {
-      width: auto;
-      max-width: 70%;
-      height: auto;
-    }
-
-    .photo-preview figure.square .photo-frame img {
-      width: 78%;
-      height: auto;
-    }
-
-    .photo-preview figcaption {
-      font-size: 10px;
-      padding: 8px 2px 0;
-      color: var(--secondary);
-      background: #fff;
-      text-align: center;
-    }
-
-    .signature-pad-wrap {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      background: #fff;
-      margin-top: 14px;
-    }
-
-    canvas.signature-pad {
-      width: 100%;
-      height: 150px;
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      background: #fff;
-      touch-action: none;
-    }
-
-    .signature-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-      margin-top: 36px;
-    }
-
-    .signature-line {
-      border-top: 1px solid var(--primary);
-      padding-top: 8px;
-      text-align: center;
-      font-size: 11px;
-    }
-
-    .technical-branding {
-      margin-top: 18px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      background: var(--light);
-      font-size: 12px;
-    }
-
-    .technical-branding strong {
-      display: block;
-      font-size: 13px;
-      color: var(--primary);
-    }
-
-    .footer {
-      position: absolute;
-      left: 17mm;
-      right: 17mm;
-      bottom: 8mm;
-      border-top: 1px solid var(--border);
-      padding-top: 7px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      align-items: center;
-      color: var(--secondary);
-      font-size: 9.5px;
-    }
-
-    .footer img {
-      height: 22px;
-      width: auto;
-      max-width: 100px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .small { font-size: 10.5px; color: var(--secondary); }
-    .page-break { page-break-before: always; }
-
-    @media (max-width: 900px) {
-      .toolbar { align-items: flex-start; flex-direction: column; }
-      .toolbar-actions { justify-content: flex-start; }
-      .page {
-        width: calc(100% - 20px);
-        min-height: auto;
-        margin: 10px;
-        padding: 20px;
-      }
-      .cover { min-height: auto; }
-      .cover h1 { font-size: 28px; }
-      .doc-header, .grid, .grid-3, .benefits, .cover-info, .signature-grid {
-        grid-template-columns: 1fr;
-      }
-      .meta { text-align: left; }
-      .header-logo img { max-width: 180px; }
-      table { font-size: 10.5px; }
-      th, td { padding: 6px; }
-      .photo-preview { grid-template-columns: 1fr; }
-      .footer { position: static; margin-top: 28px; }
-    }
-
-    @media print {
-      .photo-preview {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10mm;
-      }
-
-      .photo-preview figure {
-        margin: 0;
-        padding: 6mm;
-      }
-
-      /* força quebra de página a cada 4 itens */
-      .photo-preview figure:nth-child(4n) {
-        page-break-after: always;
-      }
-      @page { size: A4; margin: 10mm; }
-
-      body {
-        background: #fff;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-
-      .toolbar, .no-print, input[type="file"] { display: none !important; }
-
-      .page {
-        width: auto;
-        min-height: 277mm;
-        margin: 0;
-        box-shadow: none;
-        padding: 10mm 8mm 18mm;
-        page-break-after: always;
-      }
-
-      .cover {
-        min-height: 277mm;
-        padding: 14mm 10mm 18mm;
-      }
-
-      input, textarea, select {
-        border: 0 !important;
-        background: transparent !important;
-        padding: 0 !important;
-        appearance: none;
-        color: var(--text) !important;
-        overflow: visible;
-      }
-
-      textarea {
-        min-height: auto;
-        white-space: pre-wrap;
-      }
-
-      .field-box {
-        border-color: #ebe6e0;
-        background: #fff;
-        break-inside: avoid;
-      }
-
-      table, tr, td, th, .photo-block, .benefit, .intro-card, .technical-branding {
-        break-inside: avoid;
-      }
-
-      .photo-preview {
-        display: block !important;
-      }
-
-      .photo-preview figure {
-        display: block;
-        width: 100%;
-        margin: 0 0 14mm;
-        padding: 6mm;
-        border: 1px solid #ddd6cf;
-        break-inside: avoid;
-        page-break-inside: avoid;
-        overflow: visible !important;
-      }
-
-      .photo-frame {
-        display: block;
-        width: 100%;
-        height: auto;
-        overflow: visible !important;
-        background: #fff;
-        text-align: center;
-      }
-
-      .photo-frame img {
-        display: block !important;
-        width: auto !important;
-        height: auto !important;
-        max-width: 100% !important;
-        max-height: none !important;
-        margin: 0 auto !important;
-        object-fit: unset !important;
-      }
-
-      .photo-preview figure.landscape .photo-frame img {
-        width: 100% !important;
-        height: auto !important;
-      }
-
-      .photo-preview figure.portrait .photo-frame img {
-        width: auto !important;
-        max-width: 72% !important;
-        height: auto !important;
-      }
-
-      .photo-preview figure.square .photo-frame img {
-        width: 82% !important;
-        height: auto !important;
-      }
-
-      canvas.signature-pad {
-        border: 0;
-      }
-
-      .footer {
-        position: absolute;
-        bottom: 6mm;
-        left: 8mm;
-        right: 8mm;
-      }
-    }
-  
-    /* AJUSTE DEFINITIVO DO REGISTRO FOTOGRÁFICO
-       2 imagens por linha | 4 imagens por página | sem corte de imagem */
-    .photo-preview {
-      display: block !important;
-      margin-top: 14px;
-    }
-
-    .photo-page {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, auto);
-      gap: 12px;
-      margin-bottom: 18px;
-      break-inside: avoid;
-      page-break-inside: avoid;
-    }
-
-    .photo-page figure {
-      margin: 0 !important;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #fff;
-      padding: 8px;
-      break-inside: avoid;
-      page-break-inside: avoid;
-      overflow: visible !important;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .photo-page .photo-frame {
-      width: 100%;
-      height: 185px;
+      height: 180px;
       background: #f8f6f3;
       border-radius: 6px;
       display: flex;
@@ -721,450 +185,195 @@
       overflow: hidden;
     }
 
-    .photo-page .photo-frame img {
-      display: block !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      width: auto !important;
-      height: auto !important;
-      object-fit: contain !important;
-      margin: auto !important;
+    .photo-frame img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
     }
 
-    .photo-page figcaption {
-      font-size: 10px;
-      color: var(--secondary);
-      text-align: center;
-      padding-top: 6px;
+    .photo-fields { margin-top: 8px; display: grid; gap: 7px; }
+    .photo-fields label { font-size: 8.8px; margin-bottom: 2px; }
+    .photo-fields input, .photo-fields textarea { font-size: 10px; line-height: 1.25; padding: 6px; border-radius: 6px; }
+    .photo-fields textarea { min-height: 42px; resize: vertical; }
+
+    .photo-print-container { display: none; }
+
+    .print-photo-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 24px auto;
+      background: #fff;
+      padding: 14mm 12mm 12mm;
+      box-shadow: 0 8px 28px rgba(0,0,0,.12);
+      position: relative;
+    }
+
+    .print-photo-header {
+      display: grid;
+      grid-template-columns: 120px 1fr 120px;
+      gap: 14px;
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 8mm;
+    }
+
+    .print-photo-header img { width: 100%; max-height: 50px; object-fit: contain; }
+    .print-photo-header h2 { margin: 0; padding: 0; border: 0; font-size: 14px; }
+    .print-photo-header p { margin: 2px 0 0; font-size: 10px; color: var(--secondary); }
+
+    .print-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 6mm;
+      height: 235mm;
+    }
+
+    .print-photo-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4mm;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
       background: #fff;
     }
 
-    @media print {
-      .photo-preview {
-        display: block !important;
-      }
+    .print-photo-frame {
+      height: 82mm;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #fff;
+      border-radius: 5px;
+    }
 
-      .photo-page {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        grid-template-rows: repeat(2, 1fr) !important;
-        gap: 7mm !important;
-        min-height: 210mm;
-        margin: 0 !important;
+    .print-photo-frame img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .print-photo-text {
+      margin-top: 3mm;
+      font-size: 8.7px;
+      line-height: 1.25;
+      color: var(--secondary);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .print-photo-text strong {
+      display: block;
+      color: var(--primary);
+      font-size: 9px;
+      margin-bottom: 1.5mm;
+    }
+
+    .print-photo-footer {
+      position: absolute;
+      left: 12mm;
+      right: 12mm;
+      bottom: 6mm;
+      border-top: 1px solid var(--border);
+      padding-top: 5px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      color: var(--secondary);
+      font-size: 9px;
+    }
+
+    .print-photo-footer img { height: 20px; width: auto; }
+
+    .signature-pad-wrap { border: 1px solid var(--border); border-radius: 12px; padding: 10px; background: #fff; margin-top: 14px; }
+    canvas.signature-pad { width: 100%; height: 150px; border: 1px dashed var(--border); border-radius: 8px; background: #fff; touch-action: none; }
+    .signature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 36px; }
+    .signature-line { border-top: 1px solid var(--primary); padding-top: 8px; text-align: center; font-size: 11px; }
+
+    .technical-branding { margin-top: 18px; border: 1px solid var(--border); border-radius: 14px; padding: 14px; background: var(--light); font-size: 12px; }
+    .technical-branding strong { display: block; font-size: 13px; color: var(--primary); }
+
+    .footer { position: absolute; left: 17mm; right: 17mm; bottom: 8mm; border-top: 1px solid var(--border); padding-top: 7px; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; color: var(--secondary); font-size: 9.5px; }
+    .footer img { height: 22px; width: auto; max-width: 100px; object-fit: contain; display: block; }
+    .small { font-size: 10.5px; color: var(--secondary); }
+
+    @media (max-width: 900px) {
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      .toolbar-actions { justify-content: flex-start; }
+      .page, .print-photo-page { width: calc(100% - 20px); min-height: auto; margin: 10px; padding: 20px; }
+      .cover { min-height: auto; }
+      .cover h1 { font-size: 28px; }
+      .doc-header, .grid, .grid-3, .benefits, .cover-info, .signature-grid, .photo-preview { grid-template-columns: 1fr; }
+      .meta { text-align: left; }
+      .header-logo img { max-width: 180px; }
+      .footer, .print-photo-footer { position: static; margin-top: 28px; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 0; }
+
+      body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .toolbar, .no-print, input[type="file"] { display: none !important; }
+
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        padding: 14mm 12mm 18mm;
         page-break-after: always;
         break-after: page;
-        page-break-inside: avoid;
-        break-inside: avoid;
       }
 
-      .photo-page:last-child {
-        page-break-after: auto;
-        break-after: auto;
-      }
+      .cover { min-height: 297mm; padding: 18mm 14mm 18mm; }
 
-      .photo-page figure {
-        height: 97mm !important;
-        margin: 0 !important;
-        padding: 4mm !important;
-        border: 1px solid #ddd6cf;
-        border-radius: 8px;
-        overflow: hidden !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      .photo-page .photo-frame {
-        height: 82mm !important;
-        width: 100% !important;
-        overflow: hidden !important;
-        background: #fff;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-      }
-
-      .photo-page .photo-frame img {
-        max-width: 100% !important;
-        max-height: 100% !important;
-        width: auto !important;
-        height: auto !important;
-        object-fit: contain !important;
-      }
-
-      .photo-page figcaption {
-        font-size: 9px;
-        line-height: 1.2;
-        padding-top: 3mm;
-      }
-    }
-  
-    /* ===== CORREÇÃO FINAL - REGISTRO FOTOGRÁFICO EM PDF =====
-       Objetivo: 2 fotos por linha, 4 fotos por página, sem corte e sem interferência dos campos de preenchimento.
-    */
-
-    .photo-print-title {
-      display: none;
-    }
-
-    .photo-preview {
-      display: block !important;
-      margin-top: 16px !important;
-    }
-
-    .photo-page {
-      display: grid !important;
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      grid-template-rows: repeat(2, auto) !important;
-      gap: 14px !important;
-      margin: 16px 0 22px !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-    }
-
-    .photo-item {
-      margin: 0 !important;
-      padding: 10px !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 10px !important;
-      background: #fff !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-      overflow: hidden !important;
-    }
-
-    .photo-frame {
-      width: 100% !important;
-      height: 190px !important;
-      background: #f8f6f3 !important;
-      border-radius: 6px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      overflow: hidden !important;
-    }
-
-    .photo-frame img {
-      display: block !important;
-      width: auto !important;
-      height: auto !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      object-fit: contain !important;
-      margin: auto !important;
-    }
-
-    .photo-caption {
-      margin-top: 7px !important;
-      font-size: 10px !important;
-      line-height: 1.35 !important;
-      color: var(--secondary) !important;
-      text-align: center !important;
-      min-height: 28px !important;
-      border: 0 !important;
-      background: transparent !important;
-      resize: vertical !important;
-      padding: 0 !important;
-      width: 100% !important;
-    }
-
-    @media print {
-      .photo-block > .grid-3,
-      .photo-block > .field-box,
-      .photo-block > textarea,
-      .photo-block > label,
-      .photo-block input[type="file"] {
-        display: none !important;
-      }
-
-      .photo-print-title {
-        display: block !important;
-        font-size: 13px !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        letter-spacing: .4px !important;
-        color: var(--primary) !important;
-        margin: 0 0 7mm !important;
-        padding-bottom: 3mm !important;
-        border-bottom: 1px solid var(--border) !important;
-      }
-
-      .photo-preview {
-        display: block !important;
-        margin: 0 !important;
-        padding: 0 !important;
-      }
-
-      .photo-page {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        grid-template-rows: repeat(2, 1fr) !important;
-        gap: 7mm !important;
-        width: 100% !important;
-        height: 235mm !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        page-break-before: always !important;
-        break-before: page !important;
-        page-break-after: always !important;
-        break-after: page !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
-
-      .photo-page:last-child {
-        page-break-after: auto !important;
-        break-after: auto !important;
-      }
-
-      .photo-item {
-        width: 100% !important;
-        height: 111mm !important;
-        margin: 0 !important;
-        padding: 4mm !important;
-        border: 1px solid #ddd6cf !important;
-        border-radius: 8px !important;
-        background: #fff !important;
-        overflow: hidden !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
-
-      .photo-frame {
-        width: 100% !important;
-        height: 93mm !important;
-        min-height: 93mm !important;
-        max-height: 93mm !important;
-        background: #fff !important;
-        border-radius: 4px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        overflow: hidden !important;
-      }
-
-      .photo-frame img {
-        display: block !important;
-        width: auto !important;
-        height: auto !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        object-fit: contain !important;
-        object-position: center center !important;
-        margin: auto !important;
-      }
-
-      .photo-caption {
-        height: 10mm !important;
-        min-height: 10mm !important;
-        max-height: 10mm !important;
-        margin-top: 3mm !important;
-        font-size: 8.5px !important;
-        line-height: 1.2 !important;
-        color: var(--secondary) !important;
-        text-align: center !important;
-        overflow: hidden !important;
+      input, textarea, select {
         border: 0 !important;
         background: transparent !important;
         padding: 0 !important;
-        resize: none !important;
-      }
-    }
-  
-    /* ===== REGISTRO FOTOGRÁFICO - VERSÃO FINAL 2x2 =====
-       Cada foto vira um card: imagem + campos abaixo.
-       No PDF: 4 cards por página, 2 por linha, sem elementos extras dentro da grade.
-    */
-
-    .photo-preview {
-      display: block !important;
-      margin-top: 16px !important;
-    }
-
-    .photo-page {
-      display: grid !important;
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      gap: 14px !important;
-      margin: 16px 0 24px !important;
-      page-break-inside: avoid !important;
-      break-inside: avoid !important;
-    }
-
-    .photo-item {
-      border: 1px solid var(--border) !important;
-      border-radius: 10px !important;
-      background: #fff !important;
-      padding: 10px !important;
-      margin: 0 !important;
-      display: flex !important;
-      flex-direction: column !important;
-      page-break-inside: avoid !important;
-      break-inside: avoid !important;
-      overflow: hidden !important;
-    }
-
-    .photo-frame {
-      width: 100% !important;
-      height: 180px !important;
-      background: #f8f6f3 !important;
-      border-radius: 6px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      overflow: hidden !important;
-    }
-
-    .photo-frame img {
-      display: block !important;
-      width: auto !important;
-      height: auto !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      object-fit: contain !important;
-      object-position: center center !important;
-    }
-
-    .photo-fields {
-      margin-top: 8px !important;
-      display: grid !important;
-      grid-template-columns: 1fr !important;
-      gap: 6px !important;
-    }
-
-    .photo-fields label {
-      font-size: 8.5px !important;
-      margin-bottom: 2px !important;
-    }
-
-    .photo-fields input,
-    .photo-fields textarea {
-      width: 100% !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 6px !important;
-      padding: 5px !important;
-      font-size: 10px !important;
-      line-height: 1.25 !important;
-      background: #fff !important;
-    }
-
-    .photo-fields textarea {
-      min-height: 34px !important;
-      resize: vertical !important;
-    }
-
-    @media print {
-      /* Esconde apenas os campos gerais do bloco, mantendo os campos individuais abaixo de cada foto */
-      .photo-block > .grid-3,
-      .photo-block > .field-box,
-      .photo-block input[type="file"] {
-        display: none !important;
+        appearance: none;
+        color: var(--text) !important;
+        overflow: hidden;
       }
 
-      .photo-preview {
-        display: block !important;
-        margin: 0 !important;
-        padding: 0 !important;
+      textarea { min-height: auto; white-space: pre-wrap; }
+      .field-box { border-color: #ebe6e0; background: #fff; break-inside: avoid; }
+      table, tr, td, th, .benefit, .intro-card, .technical-branding { break-inside: avoid; }
+
+      #photoContainer { display: none !important; }
+      .photo-print-container { display: block !important; }
+
+      .print-photo-page {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        padding: 12mm 10mm 10mm;
+        page-break-after: always;
+        break-after: page;
       }
 
-      .photo-page {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        grid-template-rows: repeat(2, 1fr) !important;
-        gap: 6mm !important;
-        width: 100% !important;
-        height: 232mm !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        page-break-before: always !important;
-        break-before: page !important;
-        page-break-after: always !important;
-        break-after: page !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
+      .print-photo-page:last-child { page-break-after: auto; break-after: auto; }
+      .print-photo-header { height: 18mm; margin-bottom: 6mm; }
+      .print-photo-grid { height: 246mm; gap: 5mm; }
+      .print-photo-card { height: 120.5mm; padding: 3.5mm; }
+      .print-photo-frame { height: 91mm; }
+      .print-photo-text { height: 19mm; font-size: 8.5px; line-height: 1.22; }
+      .print-photo-footer { bottom: 5mm; left: 10mm; right: 10mm; }
 
-      .photo-page:last-child {
-        page-break-after: auto !important;
-        break-after: auto !important;
-      }
-
-      .photo-item {
-        height: 113mm !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 4mm !important;
-        border: 1px solid #ddd6cf !important;
-        border-radius: 8px !important;
-        background: #fff !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        overflow: hidden !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
-
-      .photo-frame {
-        height: 80mm !important;
-        min-height: 80mm !important;
-        max-height: 80mm !important;
-        width: 100% !important;
-        background: #fff !important;
-        overflow: hidden !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-      }
-
-      .photo-frame img {
-        width: auto !important;
-        height: auto !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        object-fit: contain !important;
-        object-position: center center !important;
-      }
-
-      .photo-fields {
-        margin-top: 3mm !important;
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 1.6mm !important;
-      }
-
-      .photo-fields label {
-        display: none !important;
-      }
-
-      .photo-fields input,
-      .photo-fields textarea {
-        border: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        font-size: 8.5px !important;
-        line-height: 1.2 !important;
-        color: var(--secondary) !important;
-        overflow: hidden !important;
-        resize: none !important;
-      }
-
-      .photo-fields input {
-        height: 4mm !important;
-        font-weight: 700 !important;
-        text-align: center !important;
-      }
-
-      .photo-fields textarea {
-        height: 10mm !important;
-        min-height: 10mm !important;
-        max-height: 10mm !important;
-        text-align: center !important;
-      }
+      canvas.signature-pad { border: 0; }
+      .footer { bottom: 6mm; left: 12mm; right: 12mm; }
     }
   </style>
 </head>
@@ -1175,7 +384,7 @@
     <div class="toolbar-actions">
       <button class="ghost" onclick="generateReportNumber()">Gerar nº</button>
       <button class="ghost" onclick="addOccurrence()">+ Ocorrência</button>
-      <button class="ghost" onclick="addPhotoBlock()">+ Fotos</button>
+      <button class="ghost" onclick="addPhotoBlock()">+ Bloco de fotos</button>
       <button class="ghost" onclick="fillEmailTemplate()">Texto de envio</button>
       <button onclick="prepareAndPrint()">Gerar PDF</button>
     </div>
@@ -1183,10 +392,7 @@
 
   <main class="page cover">
     <div>
-      <div class="cover-logo">
-        <img src="logo-fksa.png" alt="FKSA Arquitetura | Design" />
-      </div>
-
+      <div class="cover-logo"><img src="logo-fksa.png" alt="FKSA Arquitetura | Design" /></div>
       <section class="cover-title">
         <div class="eyebrow">Serviço técnico premium</div>
         <h1>Relatório de Vistoria Técnica Pós-Entrega</h1>
@@ -1195,39 +401,18 @@
     </div>
 
     <section class="cover-info">
-      <div class="cover-info-card">
-        <span>Cliente</span>
-        <input id="coverClient" placeholder="Nome do cliente" oninput="syncCoverToForm()" />
-      </div>
-      <div class="cover-info-card">
-        <span>Empreendimento</span>
-        <input id="coverProject" placeholder="Condomínio / empreendimento" oninput="syncCoverToForm()" />
-      </div>
-      <div class="cover-info-card">
-        <span>Relatório</span>
-        <input id="reportNumber" placeholder="VT-AAAA-MMDD-000" oninput="syncReportFields()" />
-      </div>
-      <div class="cover-info-card">
-        <span>Data</span>
-        <input id="reportDate" type="date" onchange="syncReportFields()" />
-      </div>
+      <div class="cover-info-card"><span>Cliente</span><input id="coverClient" placeholder="Nome do cliente" oninput="syncCoverToForm()" /></div>
+      <div class="cover-info-card"><span>Empreendimento</span><input id="coverProject" placeholder="Condomínio / empreendimento" oninput="syncCoverToForm()" /></div>
+      <div class="cover-info-card"><span>Relatório</span><input id="reportNumber" placeholder="VT-AAAA-MMDD-000" oninput="syncReportFields()" /></div>
+      <div class="cover-info-card"><span>Data</span><input id="reportDate" type="date" onchange="syncReportFields()" /></div>
     </section>
   </main>
 
   <main class="page">
     <header class="doc-header">
-      <div class="header-logo">
-        <img src="logo-fksa.png" alt="FKSA Arquitetura | Design" />
-      </div>
-      <section class="header-title">
-        <h1>Relatório de Vistoria Técnica</h1>
-        <p>Apartamento após entrega da construtora</p>
-        <p>Registro técnico, fotográfico e recomendações de encaminhamento.</p>
-      </section>
-      <section class="meta">
-        <p><strong>Relatório nº:</strong><br><input id="reportNumberHeader" placeholder="VT-2026-001" oninput="document.getElementById('reportNumber').value=this.value" /></p>
-        <p><strong>Data:</strong><br><input id="reportDateHeader" type="date" onchange="document.getElementById('reportDate').value=this.value" /></p>
-      </section>
+      <div class="header-logo"><img src="logo-fksa.png" alt="FKSA Arquitetura | Design" /></div>
+      <section class="header-title"><h1>Relatório de Vistoria Técnica</h1><p>Apartamento após entrega da construtora</p><p>Registro técnico, fotográfico e recomendações de encaminhamento.</p></section>
+      <section class="meta"><p><strong>Relatório nº:</strong><br><input id="reportNumberHeader" placeholder="VT-2026-001" oninput="document.getElementById('reportNumber').value=this.value" /></p><p><strong>Data:</strong><br><input id="reportDateHeader" type="date" onchange="document.getElementById('reportDate').value=this.value" /></p></section>
     </header>
 
     <section class="intro-card">
@@ -1242,7 +427,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section>
       <h2>1. Identificação do cliente e do imóvel</h2>
       <div class="grid">
         <div class="field-box"><label>Cliente</label><input id="clientName" placeholder="Nome completo do cliente" oninput="document.getElementById('coverClient').value=this.value" /></div>
@@ -1256,21 +441,14 @@
       </div>
     </section>
 
-    <section class="section">
+    <section>
       <h2>2. Perfil da vistoria</h2>
       <p class="small">Selecione a tipologia para ajustar o enfoque técnico do parecer.</p>
-      <div class="type-toggle no-print">
-        <span class="pill active" onclick="setInspectionType(this, 'padrao')">Padrão</span>
-        <span class="pill" onclick="setInspectionType(this, 'alto')">Alto padrão</span>
-        <span class="pill" onclick="setInspectionType(this, 'investidor')">Investidor</span>
-      </div>
-      <div class="field-box">
-        <label>Objetivo específico</label>
-        <textarea id="inspectionObjective">Registrar tecnicamente as condições aparentes do apartamento no momento da vistoria pós-entrega, identificando eventuais não conformidades visíveis, pendências de acabamento, problemas de funcionamento e pontos que demandam correção pela construtora ou análise complementar especializada.</textarea>
-      </div>
+      <div class="type-toggle no-print"><span class="pill active" onclick="setInspectionType(this, 'padrao')">Padrão</span><span class="pill" onclick="setInspectionType(this, 'alto')">Alto padrão</span><span class="pill" onclick="setInspectionType(this, 'investidor')">Investidor</span></div>
+      <div class="field-box"><label>Objetivo específico</label><textarea id="inspectionObjective">Registrar tecnicamente as condições aparentes do apartamento no momento da vistoria pós-entrega, identificando eventuais não conformidades visíveis, pendências de acabamento, problemas de funcionamento e pontos que demandam correção pela construtora ou análise complementar especializada.</textarea></div>
     </section>
 
-    <section class="section">
+    <section>
       <h2>3. Critérios de avaliação</h2>
       <table>
         <thead><tr><th style="width: 26%">Critério</th><th>Descrição</th></tr></thead>
@@ -1283,10 +461,7 @@
       </table>
     </section>
 
-    <div class="footer">
-      <span>FKSA Arquitetura | Design — Relatório de Vistoria Técnica Pós-Entrega</span>
-      <img src="logo-fksa.png" alt="FKSA" />
-    </div>
+    <div class="footer"><span>FKSA Arquitetura | Design — Relatório de Vistoria Técnica Pós-Entrega</span><img src="logo-fksa.png" alt="FKSA" /></div>
   </main>
 
   <main class="page">
@@ -1296,9 +471,8 @@
       <section class="meta"><p><strong>Relatório nº:</strong><br><input class="reportMirror" placeholder="VT-2026-001" /></p></section>
     </header>
 
-    <section class="section">
+    <section>
       <h2>4. Checklist técnico por ambiente</h2>
-
       <h3>4.1 Áreas secas: sala, quartos, circulação e varanda</h3>
       <table>
         <thead><tr><th>Item</th><th style="width: 20%">Status</th><th>Observações</th></tr></thead>
@@ -1326,29 +500,15 @@
       </table>
     </section>
 
-    <section class="section">
+    <section>
       <h2>5. Ocorrências identificadas</h2>
-      <p class="small">Registre os pontos que exigem correção, acompanhamento ou ressalva formal.</p>
       <table id="occurrenceTable">
-        <thead>
-          <tr><th style="width: 5%">Nº</th><th style="width: 17%">Ambiente</th><th>Descrição da ocorrência</th><th style="width: 16%">Gravidade</th><th>Recomendação</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td><input placeholder="Ex.: Banheiro suíte" /></td>
-            <td><textarea placeholder="Descreva a falha observada."></textarea></td>
-            <td><select><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select></td>
-            <td><textarea placeholder="Correção recomendada / encaminhamento."></textarea></td>
-          </tr>
-        </tbody>
+        <thead><tr><th style="width: 5%">Nº</th><th style="width: 17%">Ambiente</th><th>Descrição da ocorrência</th><th style="width: 16%">Gravidade</th><th>Recomendação</th></tr></thead>
+        <tbody><tr><td>1</td><td><input placeholder="Ex.: Banheiro suíte" /></td><td><textarea placeholder="Descreva a falha observada."></textarea></td><td><select><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select></td><td><textarea placeholder="Correção recomendada / encaminhamento."></textarea></td></tr></tbody>
       </table>
     </section>
 
-    <div class="footer">
-      <span>Responsável técnico: Felipe Karam Coelho Calvo — CAU A67536-9</span>
-      <img src="logo-fksa.png" alt="FKSA" />
-    </div>
+    <div class="footer"><span>Responsável técnico: Felipe Karam Coelho Calvo — CAU A67536-9</span><img src="logo-fksa.png" alt="FKSA" /></div>
   </main>
 
   <main class="page">
@@ -1358,108 +518,67 @@
       <section class="meta"><p><strong>Relatório nº:</strong><br><input class="reportMirror" placeholder="VT-2026-001" /></p></section>
     </header>
 
-    <section class="section">
+    <section id="photoInputSection">
       <h2>6. Registro fotográfico</h2>
-      <p class="small">Anexe fotos por ambiente ou por ocorrência. As imagens serão incorporadas ao relatório antes da geração do PDF.</p>
+      <p class="photo-instructions">Anexe as fotos e preencha abaixo de cada imagem o ambiente/ocorrência e a observação. No PDF, esta seção será organizada automaticamente em folhas com 4 fotos por página.</p>
       <div id="photoContainer">
         <div class="photo-block">
-          <div class="grid-3">
-            <div class="field-box"><label>Ambiente / ocorrência</label><input placeholder="Ex.: Cozinha - Ocorrência 01" /></div>
-            <div class="field-box"><label>Responsável pelo registro</label><input placeholder="Nome" /></div>
-            <div class="field-box no-print"><label>Fotos</label><input type="file" accept="image/*" multiple onchange="previewPhotos(this)" /></div>
-          </div>
-          <div class="field-box" style="margin-top:10px;"><label>Legenda geral / observações</label><textarea placeholder="Legenda geral ou observações das imagens."></textarea></div>
+          <div class="field-box no-print"><label>Fotos</label><input type="file" accept="image/*" multiple onchange="previewPhotos(this)" /></div>
           <div class="photo-preview"></div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section>
       <h2>7. Parecer técnico resumido</h2>
       <div class="grid">
-        <div class="field-box">
-          <label>Condição geral do imóvel</label>
-          <select id="generalCondition">
-            <option>Apto para recebimento, sem ressalvas relevantes</option>
-            <option>Apto para recebimento, com ressalvas</option>
-            <option>Recebimento não recomendado até correções</option>
-            <option>Necessita análise técnica complementar</option>
-          </select>
-        </div>
-        <div class="field-box">
-          <label>Prioridade de encaminhamento</label>
-          <select><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select>
-        </div>
+        <div class="field-box"><label>Condição geral do imóvel</label><select id="generalCondition"><option>Apto para recebimento, sem ressalvas relevantes</option><option>Apto para recebimento, com ressalvas</option><option>Recebimento não recomendado até correções</option><option>Necessita análise técnica complementar</option></select></div>
+        <div class="field-box"><label>Prioridade de encaminhamento</label><select><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select></div>
       </div>
-      <div class="field-box" style="margin-top:12px;">
-        <label>Síntese técnica</label>
-        <textarea id="technicalOpinion" placeholder="Síntese técnica: principais achados, riscos ao cliente e recomendação objetiva para negociação/correção junto à construtora."></textarea>
-      </div>
+      <div class="field-box" style="margin-top:12px;"><label>Síntese técnica</label><textarea id="technicalOpinion" placeholder="Síntese técnica: principais achados, riscos ao cliente e recomendação objetiva para negociação/correção junto à construtora."></textarea></div>
     </section>
 
-    <section class="section">
+    <section>
       <h2>8. Limitações da vistoria</h2>
       <div class="note">Esta vistoria é visual e não destrutiva, realizada com base nas condições aparentes do imóvel no momento da visita. Não substitui ensaios laboratoriais, testes especializados, laudos estruturais, laudos elétricos, laudos hidráulicos, perícias judiciais ou análise de sistemas ocultos, salvo contratação específica.</div>
       <div class="field-box"><label>Limitações específicas</label><textarea placeholder="Inclua limitações específicas: falta de energia, água, gás, ausência de manuais, ambientes inacessíveis, equipamentos não instalados etc."></textarea></div>
     </section>
 
-    <section class="section">
+    <section>
       <h2>9. Encaminhamentos recomendados</h2>
-      <table>
-        <thead><tr><th>Encaminhamento</th><th style="width:24%">Responsável sugerido</th><th style="width:20%">Prazo sugerido</th></tr></thead>
-        <tbody>
-          <tr><td><textarea placeholder="Ex.: Solicitar correção dos rejuntes manchados no banheiro social."></textarea></td><td><input placeholder="Construtora" /></td><td><input placeholder="Ex.: 7 dias úteis" /></td></tr>
-          <tr><td><textarea placeholder="Ex.: Reagendar vistoria após correções."></textarea></td><td><input placeholder="Cliente / Escritório" /></td><td><input placeholder="Ex.: após retorno da construtora" /></td></tr>
-        </tbody>
-      </table>
+      <table><thead><tr><th>Encaminhamento</th><th style="width:24%">Responsável sugerido</th><th style="width:20%">Prazo sugerido</th></tr></thead><tbody><tr><td><textarea placeholder="Ex.: Solicitar correção dos rejuntes manchados no banheiro social."></textarea></td><td><input placeholder="Construtora" /></td><td><input placeholder="Ex.: 7 dias úteis" /></td></tr><tr><td><textarea placeholder="Ex.: Reagendar vistoria após correções."></textarea></td><td><input placeholder="Cliente / Escritório" /></td><td><input placeholder="Ex.: após retorno da construtora" /></td></tr></tbody></table>
     </section>
 
-    <section class="section">
+    <section>
       <h2>10. Responsabilidade técnica e assinatura</h2>
-      <div class="technical-branding">
-        <strong>Felipe Karam Coelho Calvo</strong>
-        Arquiteto e Urbanista — CAU A67536-9<br>
-        FKSA Arquitetura | Design
-      </div>
-
-      <div class="signature-pad-wrap no-print">
-        <label>Assinatura na tela</label>
-        <canvas id="signaturePad" class="signature-pad"></canvas>
-        <button class="ghost" type="button" onclick="clearSignature()" style="margin-top:8px;">Limpar assinatura</button>
-      </div>
-
-      <div class="signature-grid">
-        <div class="signature-line">Felipe Karam Coelho Calvo<br>Arquiteto e Urbanista — CAU A67536-9</div>
-        <div class="signature-line">Cliente / representante</div>
-      </div>
+      <div class="technical-branding"><strong>Felipe Karam Coelho Calvo</strong>Arquiteto e Urbanista — CAU A67536-9<br>FKSA Arquitetura | Design</div>
+      <div class="signature-pad-wrap no-print"><label>Assinatura na tela</label><canvas id="signaturePad" class="signature-pad"></canvas><button class="ghost" type="button" onclick="clearSignature()" style="margin-top:8px;">Limpar assinatura</button></div>
+      <div class="signature-grid"><div class="signature-line">Felipe Karam Coelho Calvo<br>Arquiteto e Urbanista — CAU A67536-9</div><div class="signature-line">Cliente / representante</div></div>
     </section>
 
-    <section class="section no-print">
+    <section class="no-print">
       <h2>11. Padrão de envio ao cliente</h2>
-      <div class="field-box">
-        <textarea id="emailTemplate" style="min-height:160px;">Olá, [NOME DO CLIENTE].
+      <div class="field-box"><textarea id="emailTemplate" style="min-height:160px;">Olá, [NOME DO CLIENTE].
 
 Conforme vistoria realizada no imóvel [EMPREENDIMENTO / UNIDADE], encaminhamos em anexo o Relatório de Vistoria Técnica Pós-Entrega.
 
 O documento reúne os principais pontos observados, registros fotográficos, classificação das ocorrências e recomendações de encaminhamento junto à construtora.
 
-Recomendamos que as pendências sejam protocoladas formalmente junto à construtora/incorporadora, mantendo este relatório como apoio técnico para acompanhamento das correções.
-
 Atenciosamente,
 Felipe Karam Coelho Calvo
 Arquiteto e Urbanista — CAU A67536-9
-FKSA Arquitetura | Design</textarea>
-      </div>
+FKSA Arquitetura | Design</textarea></div>
       <button class="ghost" onclick="copyEmailTemplate()" style="margin-top:10px;">Copiar texto de envio</button>
     </section>
 
-    <div class="footer">
-      <span>FKSA Arquitetura | Design — Relatório emitido por Felipe Karam Coelho Calvo — CAU A67536-9</span>
-      <img src="logo-fksa.png" alt="FKSA" />
-    </div>
+    <div class="footer"><span>FKSA Arquitetura | Design — Relatório emitido por Felipe Karam Coelho Calvo — CAU A67536-9</span><img src="logo-fksa.png" alt="FKSA" /></div>
   </main>
 
+  <section id="photoPrintContainer" class="photo-print-container"></section>
+
   <script>
+    let photoItems = [];
+
     function generateReportNumber() {
       const now = new Date();
       const yyyy = now.getFullYear();
@@ -1485,10 +604,11 @@ FKSA Arquitetura | Design</textarea>
 
     function prepareAndPrint() {
       syncReportFields();
+      buildPhotoPrintPages();
       const number = document.getElementById('reportNumber').value || 'VT-sem-numero';
       const client = document.getElementById('clientName').value || 'Cliente';
       document.title = `${number} - Relatorio de Vistoria Tecnica - ${client} - FKSA`;
-      window.print();
+      setTimeout(() => window.print(), 250);
     }
 
     function addOccurrence() {
@@ -1503,7 +623,7 @@ FKSA Arquitetura | Design</textarea>
       const container = document.getElementById('photoContainer');
       const block = document.createElement('div');
       block.className = 'photo-block';
-      block.innerHTML = `<div class="grid-3"><div class="field-box"><label>Ambiente / ocorrência</label><input placeholder="Ex.: Cozinha - Ocorrência 02" /></div><div class="field-box"><label>Responsável pelo registro</label><input placeholder="Nome" /></div><div class="field-box no-print"><label>Fotos</label><input type="file" accept="image/*" multiple onchange="previewPhotos(this)" /></div></div><div class="field-box" style="margin-top:10px;"><label>Legenda geral / observações</label><textarea placeholder="Legenda geral ou observações das imagens."></textarea></div><div class="photo-preview"></div>`;
+      block.innerHTML = `<div class="field-box no-print"><label>Fotos</label><input type="file" accept="image/*" multiple onchange="previewPhotos(this)" /></div><div class="photo-preview"></div>`;
       container.appendChild(block);
     }
 
@@ -1513,44 +633,81 @@ FKSA Arquitetura | Design</textarea>
       preview.innerHTML = '';
 
       const files = Array.from(input.files);
-
-      files.forEach((file, index) => {
-        const pageIndex = Math.floor(index / 4);
-        let currentPage = preview.querySelectorAll('.photo-page')[pageIndex];
-
-        if (!currentPage) {
-          currentPage = document.createElement('div');
-          currentPage.className = 'photo-page';
-          preview.appendChild(currentPage);
-        }
-
+      files.forEach((file) => {
         const reader = new FileReader();
-
         reader.onload = function(e) {
-          const figure = document.createElement('figure');
-          figure.className = 'photo-item';
-
-          figure.innerHTML = `
-            <div class="photo-frame">
-              <img src="${e.target.result}" alt="Foto da vistoria ${index + 1}">
-            </div>
+          const index = document.querySelectorAll('.photo-card').length + 1;
+          const card = document.createElement('div');
+          card.className = 'photo-card';
+          card.dataset.src = e.target.result;
+          card.innerHTML = `
+            <div class="photo-frame"><img src="${e.target.result}" alt="Foto da vistoria ${index}"></div>
             <div class="photo-fields">
-              <div>
-                <label>Identificação da foto</label>
-                <input value="Foto ${String(index + 1).padStart(2, '0')}" placeholder="Foto ${String(index + 1).padStart(2, '0')} — ambiente / ocorrência">
-              </div>
-              <div>
-                <label>Observação</label>
-                <textarea placeholder="Descreva o ambiente, ocorrência ou recomendação relacionada à foto."></textarea>
-              </div>
+              <div><label>Ambiente / ocorrência</label><input class="photo-ambient" placeholder="Ex.: Banheiro suíte — Ocorrência 01"></div>
+              <div><label>Observação</label><textarea class="photo-observation" placeholder="Descreva a ocorrência, condição encontrada ou recomendação."></textarea></div>
             </div>
           `;
-
-          const targetPage = preview.querySelectorAll('.photo-page')[pageIndex];
-          targetPage.appendChild(figure);
+          preview.appendChild(card);
         };
-
         reader.readAsDataURL(file);
+      });
+    }
+
+    function collectPhotoCards() {
+      return Array.from(document.querySelectorAll('.photo-card')).map((card, index) => ({
+        src: card.dataset.src,
+        ambient: card.querySelector('.photo-ambient')?.value || `Foto ${String(index + 1).padStart(2, '0')}`,
+        observation: card.querySelector('.photo-observation')?.value || ''
+      })).filter(item => item.src);
+    }
+
+    function buildPhotoPrintPages() {
+      const container = document.getElementById('photoPrintContainer');
+      container.innerHTML = '';
+      const photos = collectPhotoCards();
+      if (!photos.length) return;
+
+      const reportNumber = document.getElementById('reportNumber').value || '';
+
+      for (let i = 0; i < photos.length; i += 4) {
+        const group = photos.slice(i, i + 4);
+        const page = document.createElement('article');
+        page.className = 'print-photo-page';
+        page.innerHTML = `
+          <header class="print-photo-header">
+            <img src="logo-fksa.png" alt="FKSA">
+            <div><h2>Registro fotográfico</h2><p>${reportNumber}</p></div>
+            <p style="text-align:right;">Fotos ${String(i + 1).padStart(2, '0')} a ${String(i + group.length).padStart(2, '0')}</p>
+          </header>
+          <div class="print-photo-grid"></div>
+          <div class="print-photo-footer"><span>FKSA Arquitetura | Design — Felipe Karam Coelho Calvo — CAU A67536-9</span><img src="logo-fksa.png" alt="FKSA"></div>
+        `;
+
+        const grid = page.querySelector('.print-photo-grid');
+        group.forEach((photo, idx) => {
+          const card = document.createElement('div');
+          card.className = 'print-photo-card';
+          card.innerHTML = `
+            <div class="print-photo-frame"><img src="${photo.src}" alt="Foto ${i + idx + 1}"></div>
+            <div class="print-photo-text"><strong>${escapeHtml(photo.ambient)}</strong>${escapeHtml(photo.observation)}</div>
+          `;
+          grid.appendChild(card);
+        });
+
+        for (let empty = group.length; empty < 4; empty++) {
+          const blank = document.createElement('div');
+          blank.className = 'print-photo-card';
+          blank.style.visibility = 'hidden';
+          grid.appendChild(blank);
+        }
+
+        container.appendChild(page);
+      }
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>'"]/g, function(match) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[match];
       });
     }
 
@@ -1574,7 +731,7 @@ FKSA Arquitetura | Design</textarea>
     function fillEmailTemplate() {
       const client = document.getElementById('clientName').value || '[NOME DO CLIENTE]';
       const project = document.getElementById('projectName').value || '[EMPREENDIMENTO / UNIDADE]';
-      document.getElementById('emailTemplate').value = `Olá, ${client}.\n\nConforme vistoria realizada no imóvel ${project}, encaminhamos em anexo o Relatório de Vistoria Técnica Pós-Entrega.\n\nO documento reúne os principais pontos observados, registros fotográficos, classificação das ocorrências e recomendações de encaminhamento junto à construtora.\n\nRecomendamos que as pendências sejam protocoladas formalmente junto à construtora/incorporadora, mantendo este relatório como apoio técnico para acompanhamento das correções.\n\nAtenciosamente,\nFelipe Karam Coelho Calvo\nArquiteto e Urbanista — CAU A67536-9\nFKSA Arquitetura | Design`;
+      document.getElementById('emailTemplate').value = `Olá, ${client}.\n\nConforme vistoria realizada no imóvel ${project}, encaminhamos em anexo o Relatório de Vistoria Técnica Pós-Entrega.\n\nO documento reúne os principais pontos observados, registros fotográficos, classificação das ocorrências e recomendações de encaminhamento junto à construtora.\n\nAtenciosamente,\nFelipe Karam Coelho Calvo\nArquiteto e Urbanista — CAU A67536-9\nFKSA Arquitetura | Design`;
       document.getElementById('emailTemplate').scrollIntoView({ behavior: 'smooth' });
     }
 
