@@ -407,9 +407,11 @@
 
     .photo-preview img {
       width: 100%;
-      height: 170px;
-      object-fit: cover;
+      height: auto;
+      max-height: 230px;
+      object-fit: contain;
       display: block;
+      background: #f8f6f3;
     }
 
     .photo-preview figcaption {
@@ -567,7 +569,9 @@
       }
 
       .photo-preview img {
-        height: 145px;
+        height: auto;
+        max-height: 190px;
+        object-fit: contain;
       }
 
       canvas.signature-pad {
@@ -700,13 +704,13 @@
 
     <div class="footer">
       <span>FKSA Arquitetura | Design — Relatório de Vistoria Técnica Pós-Entrega</span>
-      <img src="logo-fksa.jpg" alt="FKSA" />
+      <img src="logo-fksa.png" alt="FKSA" />
     </div>
   </main>
 
   <main class="page">
     <header class="doc-header">
-      <div class="header-logo"><img src="logo-fksa.jpg" alt="FKSA Arquitetura | Design" /></div>
+      <div class="header-logo"><img src="logo-fksa.png" alt="FKSA Arquitetura | Design" /></div>
       <section class="header-title"><h1>Checklist técnico</h1><p>Avaliação visual por ambiente e sistema aparente.</p></section>
       <section class="meta"><p><strong>Relatório nº:</strong><br><input class="reportMirror" placeholder="VT-2026-001" /></p></section>
     </header>
@@ -762,13 +766,13 @@
 
     <div class="footer">
       <span>Responsável técnico: Felipe Karam Coelho Calvo — CAU A67536-9</span>
-      <img src="logo-fksa.jpg" alt="FKSA" />
+      <img src="logo-fksa.png" alt="FKSA" />
     </div>
   </main>
 
   <main class="page">
     <header class="doc-header">
-      <div class="header-logo"><img src="logo-fksa.jpg" alt="FKSA Arquitetura | Design" /></div>
+      <div class="header-logo"><img src="logo-fksa.png" alt="FKSA Arquitetura | Design" /></div>
       <section class="header-title"><h1>Registro fotográfico e parecer</h1><p>Evidências, conclusão técnica e encaminhamentos recomendados.</p></section>
       <section class="meta"><p><strong>Relatório nº:</strong><br><input class="reportMirror" placeholder="VT-2026-001" /></p></section>
     </header>
@@ -870,7 +874,7 @@ FKSA Arquitetura | Design</textarea>
 
     <div class="footer">
       <span>FKSA Arquitetura | Design — Relatório emitido por Felipe Karam Coelho Calvo — CAU A67536-9</span>
-      <img src="logo-fksa.jpg" alt="FKSA" />
+      <img src="logo-fksa.png" alt="FKSA" />
     </div>
   </main>
 
