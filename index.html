@@ -391,27 +391,55 @@
 
     .photo-preview {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
       margin-top: 10px;
+      align-items: start;
     }
 
     .photo-preview figure {
       margin: 0;
       border: 1px solid var(--border);
       border-radius: 8px;
-      overflow: hidden;
+      overflow: visible;
       background: #fff;
       break-inside: avoid;
+      page-break-inside: avoid;
+      padding: 8px;
     }
 
-    .photo-preview img {
+    .photo-frame {
+      width: 100%;
+      background: #f8f6f3;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .photo-frame img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .photo-preview figure.landscape .photo-frame img {
       width: 100%;
       height: auto;
-      max-height: 230px;
-      object-fit: contain;
-      display: block;
-      background: #f8f6f3;
+    }
+
+    .photo-preview figure.portrait .photo-frame img {
+      width: auto;
+      max-width: 78%;
+      max-height: 360px;
+    }
+
+    .photo-preview figure.square .photo-frame img {
+      width: 86%;
+      height: auto;
     }
 
     .photo-preview figcaption {
@@ -565,13 +593,36 @@
       }
 
       .photo-preview {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
       }
 
-      .photo-preview img {
+      .photo-preview figure {
+        overflow: visible;
+        padding: 6px;
+      }
+
+      .photo-frame img {
+        width: auto;
         height: auto;
-        max-height: 190px;
+        max-width: 100%;
         object-fit: contain;
+      }
+
+      .photo-preview figure.landscape .photo-frame img {
+        width: 100%;
+        height: auto;
+      }
+
+      .photo-preview figure.portrait .photo-frame img {
+        width: auto;
+        max-width: 76%;
+        max-height: 300px;
+      }
+
+      .photo-preview figure.square .photo-frame img {
+        width: 82%;
+        height: auto;
       }
 
       canvas.signature-pad {
@@ -933,7 +984,17 @@ FKSA Arquitetura | Design</textarea>
         const reader = new FileReader();
         reader.onload = function(e) {
           const figure = document.createElement('figure');
-          figure.innerHTML = `<img src="${e.target.result}" alt="Foto da vistoria"><figcaption>Foto ${index + 1}</figcaption>`;
+          const img = new Image();
+          img.onload = function() {
+            const ratio = img.naturalWidth / img.naturalHeight;
+            let orientation = 'square';
+            if (ratio > 1.12) orientation = 'landscape';
+            if (ratio < 0.88) orientation = 'portrait';
+            figure.className = orientation;
+            figure.innerHTML = `<div class="photo-frame"><img src="${e.target.result}" alt="Foto da vistoria"></div><figcaption>Foto ${index + 1}</figcaption>`;
+            preview.appendChild(figure);
+          };
+          img.src = e.target.result;
           preview.appendChild(figure);
         };
         reader.readAsDataURL(file);
