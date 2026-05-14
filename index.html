@@ -385,6 +385,9 @@
       <button class="ghost" onclick="generateReportNumber()">Gerar nº</button>
       <button class="ghost" onclick="addOccurrence()">+ Ocorrência</button>
       <button class="ghost" onclick="addPhotoBlock()">+ Bloco de fotos</button>
+      <button class="ghost" onclick="saveDraft()">Salvar vistoria</button>
+      <button class="ghost" onclick="loadDraft()">Carregar</button>
+      <button class="ghost" onclick="clearDraft()">Nova vistoria</button>
       <button class="ghost" onclick="fillEmailTemplate()">Texto de envio</button>
       <button onclick="prepareAndPrint()">Gerar PDF</button>
     </div>
@@ -578,6 +581,86 @@ FKSA Arquitetura | Design</textarea></div>
 
   <script>
     let photoItems = [];
+    const STORAGE_KEY = 'fksa_vistoria_pos_entrega_draft_v1';
+
+    function saveDraft() {
+      indexSavableFields();
+      const data = {
+        savedAt: new Date().toISOString(),
+        fields: Array.from(document.querySelectorAll('input:not([type="file"]), textarea, select')).map((el) => ({
+          selector: getElementSelector(el),
+          value: el.value
+        })),
+        photos: collectPhotoCards()
+      };
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      alert('Vistoria salva neste navegador.');
+    }
+
+    function loadDraft() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        alert('Nenhuma vistoria salva neste navegador.');
+        return;
+      }
+
+      const data = JSON.parse(raw);
+      indexSavableFields();
+
+      data.fields?.forEach((item) => {
+        const el = document.querySelector(item.selector);
+        if (el) el.value = item.value;
+      });
+
+      restorePhotoCards(data.photos || []);
+      syncReportFields();
+      alert('Vistoria carregada.');
+    }
+
+    function clearDraft() {
+      if (!confirm('Deseja iniciar uma nova vistoria? O preenchimento salvo neste navegador será apagado.')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+
+    function getElementSelector(el) {
+      if (el.id) return `#${el.id}`;
+      if (!el.dataset.saveIndex) indexSavableFields();
+      return `[data-save-index="${el.dataset.saveIndex}"]`;
+    }
+
+    function indexSavableFields() {
+      Array.from(document.querySelectorAll('input:not([type="file"]), textarea, select')).forEach((el, index) => {
+        if (!el.id) el.setAttribute('data-save-index', index);
+      });
+    }
+
+    function restorePhotoCards(photos) {
+      const firstPreview = document.querySelector('.photo-preview');
+      if (!firstPreview) return;
+      firstPreview.innerHTML = '';
+
+      photos.forEach((photo, index) => {
+        const card = document.createElement('div');
+        card.className = 'photo-card';
+        card.dataset.src = photo.src;
+        card.innerHTML = `
+          <div class="photo-frame"><img src="${photo.src}" alt="Foto da vistoria ${index + 1}"></div>
+          <div class="photo-fields">
+            <div><label>Ambiente / ocorrência</label><input class="photo-ambient" value="${escapeAttribute(photo.ambient || '')}" placeholder="Ex.: Banheiro suíte — Ocorrência 01"></div>
+            <div><label>Observação</label><textarea class="photo-observation" placeholder="Descreva a ocorrência, condição encontrada ou recomendação.">${escapeHtml(photo.observation || '')}</textarea></div>
+          </div>
+        `;
+        firstPreview.appendChild(card);
+      });
+    }
+
+    function escapeAttribute(text) {
+      return String(text).replace(/[&<>"']/g, function(match) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[match];
+      });
+    }
 
     function generateReportNumber() {
       const now = new Date();
@@ -746,43 +829,31 @@ FKSA Arquitetura | Design</textarea></div>
       document.getElementById('clientName').value = document.getElementById('coverClient').value;
       document.getElementById('projectName').value = document.getElementById('coverProject').value;
     }
+    indexSavableFields();
+    indexSavableFields();
 
-    const canvas = document.getElementById('signaturePad');
-    const ctx = canvas.getContext('2d');
-    let drawing = false;
+    window.addEventListener('beforeunload', function() {
+      try {
+        indexSavableFields();
+        const data = {
+          savedAt: new Date().toISOString(),
+          fields: Array.from(document.querySelectorAll('input:not([type="file"]), textarea, select')).map((el) => ({
+            selector: getElementSelector(el),
+            value: el.value
+          })),
+          photos: collectPhotoCards()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (error) {}
+    });
 
-    function resizeCanvas() {
-      const ratio = Math.max(window.devicePixelRatio || 1, 1);
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * ratio;
-      canvas.height = rect.height * ratio;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(ratio, ratio);
-      ctx.lineWidth = 2;
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = '#2f3136';
-    }
-
-    function getPos(e) {
-      const rect = canvas.getBoundingClientRect();
-      const point = e.touches ? e.touches[0] : e;
-      return { x: point.clientX - rect.left, y: point.clientY - rect.top };
-    }
-
-    function startDraw(e) { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); e.preventDefault(); }
-    function draw(e) { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault(); }
-    function stopDraw() { drawing = false; }
-    function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-    window.addEventListener('resize', resizeCanvas);
-    canvas.addEventListener('mousedown', startDraw);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDraw);
-    canvas.addEventListener('mouseleave', stopDraw);
-    canvas.addEventListener('touchstart', startDraw, { passive: false });
-    canvas.addEventListener('touchmove', draw, { passive: false });
-    canvas.addEventListener('touchend', stopDraw);
-    resizeCanvas();
+    window.addEventListener('DOMContentLoaded', function() {
+      indexSavableFields();
+      if (localStorage.getItem(STORAGE_KEY)) {
+        const shouldLoad = confirm('Existe uma vistoria salva neste navegador. Deseja carregar?');
+        if (shouldLoad) loadDraft();
+      }
+    });
   </script>
 </body>
 </html>
