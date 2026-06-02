@@ -419,12 +419,25 @@
 
       /* ── REGRAS DE QUEBRA DE PÁGINA ── */
 
-      /* Títulos NUNCA ficam sozinhos no fim de uma página */
+      /*
+        ESTRATÉGIA:
+        - h2/h3: break-after:avoid cola o título ao 1º elemento seguinte.
+        - Elementos logo após h2/h3 recebem break-before:avoid para reforçar.
+        - section NÃO tem break-inside:avoid — seções longas (checklist,
+          ocorrências) precisam quebrar livremente entre linhas.
+        - Blocos pequenos (field-box, benefit, note) mantêm avoid para não
+          partir no meio.
+        - Tabelas grandes podem quebrar entre linhas (thead se repete);
+          apenas tr tem avoid para nunca cortar UMA linha ao meio.
+      */
+
+      /* Títulos: nunca ficam sozinhos no fim da página */
       h2 {
         break-after: avoid;
         page-break-after: avoid;
         break-inside: avoid;
         page-break-inside: avoid;
+        margin-top: 14px;
       }
 
       h3 {
@@ -434,13 +447,29 @@
         page-break-inside: avoid;
       }
 
-      /* Seções: tentar manter juntas; se não couber, quebrar antes */
-      section {
-        break-inside: avoid;
-        page-break-inside: avoid;
+      /* Primeiro elemento após título: não quebra antes dele
+         (reforça o break-after:avoid do h2/h3) */
+      h2 + table,
+      h2 + .field-box,
+      h2 + p,
+      h2 + .note,
+      h2 + .intro-card,
+      h2 + .grid,
+      h2 + .benefits,
+      h3 + table,
+      h3 + p {
+        break-before: avoid;
+        page-break-before: avoid;
       }
 
-      /* Blocos de campo: nunca partir no meio */
+      /* section: PODE quebrar — não usar break-inside:avoid aqui.
+         Seções longas como checklist e ocorrências precisam fluir. */
+      section {
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+
+      /* Blocos de campo pequenos: nunca partir no meio */
       .field-box {
         break-inside: avoid;
         page-break-inside: avoid;
@@ -448,7 +477,7 @@
         background: #fff;
       }
 
-      /* Benefícios e cartões de info */
+      /* Cartões e elementos compactos */
       .benefit,
       .cover-info-card,
       .intro-card,
@@ -460,17 +489,18 @@
         page-break-inside: avoid;
       }
 
-      /* Tabelas: cabeçalho junto ao corpo */
+      /* Tabelas: PODEM quebrar entre linhas (thead se repete na nova página).
+         Apenas tr tem avoid para nunca cortar uma linha individual ao meio. */
       table {
-        break-inside: avoid;
-        page-break-inside: avoid;
+        break-inside: auto;
+        page-break-inside: auto;
       }
 
       thead {
         display: table-header-group; /* repete cabeçalho em nova página */
       }
 
-      /* Linhas de tabela: nunca partir uma linha ao meio */
+      /* Linha individual nunca é cortada ao meio */
       tr {
         break-inside: avoid;
         page-break-inside: avoid;
