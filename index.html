@@ -319,61 +319,255 @@
       .footer, .print-photo-footer { position: static; margin-top: 28px; }
     }
 
+    /* ============================================================
+       CSS DE IMPRESSÃO — CORRIGIDO
+       Problemas resolvidos:
+       1. Páginas em branco após cada .page  → removido min-height
+          no contexto de impressão; a altura é determinada pelo
+          conteúdo + margens de página @page, não pelo elemento.
+       2. Títulos separados do conteúdo      → page-break-after:avoid
+          em h2/h3 garante que o título fique junto ao primeiro
+          parágrafo/linha que o segue.
+       3. Linhas de tabela cortadas          → page-break-inside:avoid
+          em tr impede corte no meio de uma linha.
+       4. Seções/blocos partidos no meio     → page-break-inside:avoid
+          em section, .field-box, .benefit,
+          .technical-branding e .note.
+       5. Último .page gerava folha extra    → page-break-after:always
+          somente nas páginas que NÃO são a última antes das fotos;
+          a última página de conteúdo usa auto.
+    ============================================================ */
     @media print {
-      @page { size: A4; margin: 0; }
-
-      body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .toolbar, .no-print, input[type="file"] { display: none !important; }
-
-      .page {
-        width: 210mm;
-        min-height: 297mm;
-        margin: 0;
-        box-shadow: none;
-        padding: 14mm 12mm 18mm;
-        page-break-after: always;
-        break-after: page;
+      @page {
+        size: A4;
+        margin: 14mm 12mm 16mm;
       }
 
-      .cover { min-height: 297mm; padding: 18mm 14mm 18mm; }
+      html, body {
+        background: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
 
-      input, textarea, select {
+      /* Esconder elementos de interface */
+      .toolbar,
+      .no-print,
+      input[type="file"] {
+        display: none !important;
+      }
+
+      /* ── PÁGINAS DE CONTEÚDO ── */
+      .page {
+        width: auto;
+        /* SEM min-height: é isso que gera as páginas em branco */
+        min-height: 0 !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;           /* as margens vêm do @page */
+        box-shadow: none !important;
+        background: #fff !important;
+        /* Quebra de página ANTES de cada .page (exceto o primeiro) */
+        break-before: page;
+        page-break-before: always;
+        /* Nunca quebrar DENTRO de um .page de forma inesperada */
+        position: static !important;
+      }
+
+      /* Capa: ocupa uma página inteira mas sem min-height fixo */
+      .cover {
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 0 !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f7f5f2 50%, #ece7e2 100%) !important;
+      }
+
+      /* Primeira .page não precisa de quebra antes */
+      .page:first-of-type {
+        break-before: auto;
+        page-break-before: auto;
+      }
+
+      /* ── FOOTER: posição estática no print ── */
+      /* position:absolute com @page margin causa deslocamento;
+         usamos static e deixamos o rodapé cair naturalmente */
+      .footer {
+        position: static !important;
+        margin-top: 24px;
+        left: auto; right: auto; bottom: auto;
+      }
+
+      /* ── INPUTS / TEXTAREAS / SELECTS: aparência limpa ── */
+      input,
+      textarea,
+      select {
         border: 0 !important;
         background: transparent !important;
         padding: 0 !important;
+        -webkit-appearance: none;
         appearance: none;
         color: var(--text) !important;
+        overflow: visible !important;
+        /* Expansão automática de textarea no print */
+        height: auto !important;
+        min-height: 0 !important;
+      }
+
+      textarea {
+        white-space: pre-wrap;
+        overflow: visible !important;
+      }
+
+      /* ── REGRAS DE QUEBRA DE PÁGINA ── */
+
+      /* Títulos NUNCA ficam sozinhos no fim de uma página */
+      h2 {
+        break-after: avoid;
+        page-break-after: avoid;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      h3 {
+        break-after: avoid;
+        page-break-after: avoid;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Seções: tentar manter juntas; se não couber, quebrar antes */
+      section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Blocos de campo: nunca partir no meio */
+      .field-box {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        border-color: #ebe6e0;
+        background: #fff;
+      }
+
+      /* Benefícios e cartões de info */
+      .benefit,
+      .cover-info-card,
+      .intro-card,
+      .technical-branding,
+      .note,
+      .signature-grid,
+      .signature-line {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Tabelas: cabeçalho junto ao corpo */
+      table {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      thead {
+        display: table-header-group; /* repete cabeçalho em nova página */
+      }
+
+      /* Linhas de tabela: nunca partir uma linha ao meio */
+      tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* ── FOTOS ── */
+      #photoContainer {
+        display: none !important;
+      }
+
+      .photo-print-container {
+        display: block !important;
+      }
+
+      /* ── PÁGINAS DE FOTO ── */
+      .print-photo-page {
+        width: auto;
+        min-height: 0 !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        background: #fff !important;
+        break-before: page;
+        page-break-before: always;
+        position: static !important;
+      }
+
+      .print-photo-footer {
+        position: static !important;
+        margin-top: 6mm;
+        left: auto; right: auto; bottom: auto;
+      }
+
+      .print-photo-header {
+        margin-bottom: 6mm;
+      }
+
+      .print-photo-grid {
+        /* Altura fixa para 2×2 caber em A4 com margem */
+        height: 230mm;
+        gap: 5mm;
+      }
+
+      .print-photo-card {
+        height: 112mm;
+        padding: 3.5mm;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .print-photo-frame {
+        height: 88mm;
+      }
+
+      .print-photo-text {
+        height: 16mm;
+        font-size: 8.5px;
+        line-height: 1.22;
         overflow: hidden;
       }
 
-      textarea { min-height: auto; white-space: pre-wrap; }
-      .field-box { border-color: #ebe6e0; background: #fff; break-inside: avoid; }
-      table, tr, td, th, .benefit, .intro-card, .technical-branding { break-inside: avoid; }
-
-      #photoContainer { display: none !important; }
-      .photo-print-container { display: block !important; }
-
-      .print-photo-page {
-        width: 210mm;
-        height: 297mm;
-        min-height: 297mm;
-        margin: 0;
-        box-shadow: none;
-        padding: 12mm 10mm 10mm;
-        page-break-after: always;
-        break-after: page;
+      /* Assinatura */
+      canvas.signature-pad {
+        border: 0;
       }
 
-      .print-photo-page:last-child { page-break-after: auto; break-after: auto; }
-      .print-photo-header { height: 18mm; margin-bottom: 6mm; }
-      .print-photo-grid { height: 246mm; gap: 5mm; }
-      .print-photo-card { height: 120.5mm; padding: 3.5mm; }
-      .print-photo-frame { height: 91mm; }
-      .print-photo-text { height: 19mm; font-size: 8.5px; line-height: 1.22; }
-      .print-photo-footer { bottom: 5mm; left: 10mm; right: 10mm; }
+      /* Grid de identificação do imóvel: 2 colunas no print */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
 
-      canvas.signature-pad { border: 0; }
-      .footer { bottom: 6mm; left: 12mm; right: 12mm; }
+      .benefits {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .cover-info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .signature-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+
+      .doc-header {
+        display: grid;
+        grid-template-columns: 130px 1fr 160px;
+        gap: 14px;
+      }
     }
   </style>
 </head>
@@ -555,7 +749,6 @@
     <section>
       <h2>10. Responsabilidade técnica e assinatura</h2>
       <div class="technical-branding"><strong>Felipe Karam Coelho Calvo</strong>Arquiteto e Urbanista — CAU A67536-9<br>FKSA Arquitetura | Design</div>
-      
       <div class="signature-grid"><div class="signature-line">Felipe Karam Coelho Calvo<br>Arquiteto e Urbanista — CAU A67536-9</div><div class="signature-line">Cliente / representante</div></div>
     </section>
 
@@ -593,26 +786,19 @@ FKSA Arquitetura | Design</textarea></div>
         })),
         photos: collectPhotoCards()
       };
-
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       alert('Vistoria salva neste navegador.');
     }
 
     function loadDraft() {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        alert('Nenhuma vistoria salva neste navegador.');
-        return;
-      }
-
+      if (!raw) { alert('Nenhuma vistoria salva neste navegador.'); return; }
       const data = JSON.parse(raw);
       indexSavableFields();
-
       data.fields?.forEach((item) => {
         const el = document.querySelector(item.selector);
         if (el) el.value = item.value;
       });
-
       restorePhotoCards(data.photos || []);
       syncReportFields();
       alert('Vistoria carregada.');
@@ -640,7 +826,6 @@ FKSA Arquitetura | Design</textarea></div>
       const firstPreview = document.querySelector('.photo-preview');
       if (!firstPreview) return;
       firstPreview.innerHTML = '';
-
       photos.forEach((photo, index) => {
         const card = document.createElement('div');
         card.className = 'photo-card';
@@ -714,7 +899,6 @@ FKSA Arquitetura | Design</textarea></div>
       const photoBlock = input.closest('.photo-block');
       const preview = photoBlock.querySelector('.photo-preview');
       preview.innerHTML = '';
-
       const files = Array.from(input.files);
       files.forEach((file) => {
         const reader = new FileReader();
@@ -749,7 +933,6 @@ FKSA Arquitetura | Design</textarea></div>
       container.innerHTML = '';
       const photos = collectPhotoCards();
       if (!photos.length) return;
-
       const reportNumber = document.getElementById('reportNumber').value || '';
 
       for (let i = 0; i < photos.length; i += 4) {
@@ -765,7 +948,6 @@ FKSA Arquitetura | Design</textarea></div>
           <div class="print-photo-grid"></div>
           <div class="print-photo-footer"><span>FKSA Arquitetura | Design — Felipe Karam Coelho Calvo — CAU A67536-9</span><img src="logo-fksa.png" alt="FKSA"></div>
         `;
-
         const grid = page.querySelector('.print-photo-grid');
         group.forEach((photo, idx) => {
           const card = document.createElement('div');
@@ -776,14 +958,12 @@ FKSA Arquitetura | Design</textarea></div>
           `;
           grid.appendChild(card);
         });
-
         for (let empty = group.length; empty < 4; empty++) {
           const blank = document.createElement('div');
           blank.className = 'print-photo-card';
           blank.style.visibility = 'hidden';
           grid.appendChild(blank);
         }
-
         container.appendChild(page);
       }
     }
@@ -829,7 +1009,7 @@ FKSA Arquitetura | Design</textarea></div>
       document.getElementById('clientName').value = document.getElementById('coverClient').value;
       document.getElementById('projectName').value = document.getElementById('coverProject').value;
     }
-    indexSavableFields();
+
     indexSavableFields();
 
     window.addEventListener('beforeunload', function() {
