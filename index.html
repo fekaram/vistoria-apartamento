@@ -599,7 +599,50 @@
         gap: 14px;
       }
     }
-  </style>
+  
+    @media print {
+      #photoInputSection {
+        break-before: page !important;
+        page-break-before: always !important;
+      }
+
+      .page-break-occurrences,
+      .page-break-opinion {
+        break-before: page !important;
+        page-break-before: always !important;
+      }
+
+      .technical-branding,
+      .signature-grid,
+      section:last-of-type {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      .print-photo-grid {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-auto-rows: 1fr;
+        gap: 5mm;
+      }
+
+      .print-photo-card {
+        min-height: 110mm;
+        height: auto;
+      }
+
+      .print-photo-frame {
+        height: 80mm;
+      }
+
+      .print-photo-text {
+        min-height: 18mm;
+        overflow: visible;
+        word-break: break-word;
+      }
+    }
+
+</style>
 </head>
 
 <body>
@@ -728,7 +771,7 @@
     </section>
 
     <section>
-      <h2>5. Ocorrências identificadas</h2>
+      <h2 class="page-break-occurrences">5. Ocorrências identificadas</h2>
       <table id="occurrenceTable">
         <thead><tr><th style="width: 5%">Nº</th><th style="width: 17%">Ambiente</th><th>Descrição da ocorrência</th><th style="width: 16%">Gravidade</th><th>Recomendação</th></tr></thead>
         <tbody><tr><td>1</td><td><input placeholder="Ex.: Banheiro suíte" /></td><td><textarea placeholder="Descreva a falha observada."></textarea></td><td><select><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select></td><td><textarea placeholder="Correção recomendada / encaminhamento."></textarea></td></tr></tbody>
@@ -757,7 +800,7 @@
     </section>
 
     <section>
-      <h2>7. Parecer técnico resumido</h2>
+      <h2 class="page-break-opinion">7. Parecer técnico resumido</h2>
       <div class="grid">
         <div class="field-box"><label>Condição geral do imóvel</label><select id="generalCondition"><option>Apto para recebimento, sem ressalvas relevantes</option><option>Apto para recebimento, com ressalvas</option><option>Recebimento não recomendado até correções</option><option>Necessita análise técnica complementar</option></select></div>
         <div class="field-box"><label>Prioridade de encaminhamento</label><select><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select></div>
@@ -915,6 +958,7 @@ FKSA Arquitetura | Design</textarea></div>
       const row = document.createElement('tr');
       row.innerHTML = `<td>${rowCount}</td><td><input placeholder="Ex.: Ambiente" /></td><td><textarea placeholder="Descreva a falha observada."></textarea></td><td><select><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select></td><td><textarea placeholder="Correção recomendada / encaminhamento."></textarea></td>`;
       tbody.appendChild(row);
+      row.querySelectorAll('textarea').forEach(autoResizeTextarea);
     }
 
     function addPhotoBlock() {
@@ -1064,6 +1108,23 @@ FKSA Arquitetura | Design</textarea></div>
         if (shouldLoad) loadDraft();
       }
     });
-  </script>
+  
+function autoResizeTextarea(el) {
+  el.style.height = 'auto';
+  el.style.height = (el.scrollHeight + 2) + 'px';
+}
+
+function initializeAutoResize() {
+  document.querySelectorAll('textarea').forEach(textarea => {
+    autoResizeTextarea(textarea);
+    textarea.addEventListener('input', () => autoResizeTextarea(textarea));
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initializeAutoResize();
+});
+
+</script>
 </body>
 </html>
