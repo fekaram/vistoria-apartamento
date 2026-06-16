@@ -621,26 +621,61 @@
 
       .print-photo-grid {
         display: grid;
-        grid-template-columns: repeat(2,1fr);
-        grid-auto-rows: 1fr;
-        gap: 5mm;
+        grid-template-columns: 1fr 1fr;
+        gap: 4mm;
+        page-break-inside: avoid;
+        break-inside: avoid;
       }
 
       .print-photo-card {
-        min-height: 110mm;
-        height: auto;
+        min-height: 100mm;
+        max-height: 108mm;
+        overflow: hidden;
+        page-break-inside: avoid;
+        break-inside: avoid;
       }
 
       .print-photo-frame {
-        height: 80mm;
+        height: 72mm;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+
+      .print-photo-frame img {
+        width:100%;
+        height:100%;
+        object-fit:contain;
       }
 
       .print-photo-text {
-        min-height: 18mm;
-        overflow: visible;
-        word-break: break-word;
+        min-height:14mm;
+        max-height:18mm;
+        overflow:hidden;
+        font-size:8px;
+        line-height:1.2;
+        word-break:break-word;
       }
     }
+
+
+@media print {
+
+  .page-break-checklist {
+      break-before: page;
+      page-break-before: always;
+  }
+
+  .page-break-after-item9 {
+      break-before: page;
+      page-break-before: always;
+  }
+
+  .group-opinion {
+      break-inside: avoid;
+      page-break-inside: avoid;
+  }
+}
 
 </style>
 </head>
@@ -756,6 +791,8 @@
         </tbody>
       </table>
 
+      <div class="page-break-checklist"></div>
+
       <h3>4.2 Áreas molhadas: cozinha, área de serviço, banheiros e lavabo</h3>
       <table>
         <thead><tr><th>Item</th><th style="width: 20%">Status</th><th>Observações</th></tr></thead>
@@ -799,6 +836,8 @@
       </div>
     </section>
 
+    <div class="group-opinion">
+
     <section>
       <h2 class="page-break-opinion">7. Parecer técnico resumido</h2>
       <div class="grid">
@@ -818,6 +857,10 @@
       <h2>9. Encaminhamentos recomendados</h2>
       <table><thead><tr><th>Encaminhamento</th><th style="width:24%">Responsável sugerido</th><th style="width:20%">Prazo sugerido</th></tr></thead><tbody><tr><td><textarea placeholder="Ex.: Solicitar correção dos rejuntes manchados no banheiro social."></textarea></td><td><input placeholder="Construtora" /></td><td><input placeholder="Ex.: 7 dias úteis" /></td></tr><tr><td><textarea placeholder="Ex.: Reagendar vistoria após correções."></textarea></td><td><input placeholder="Cliente / Escritório" /></td><td><input placeholder="Ex.: após retorno da construtora" /></td></tr></tbody></table>
     </section>
+
+    </div>
+
+    <div class="page-break-after-item9"></div>
 
     <section>
       <h2>10. Responsabilidade técnica e assinatura</h2>
