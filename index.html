@@ -2,7 +2,7 @@
 <!--
 =================================================
 FKSA VISTORIA PÓS-ENTREGA
-VERSÃO 3.0
+VERSÃO 3.1
 DATA: 17/06/2026
 =================================================
 -->
@@ -550,27 +550,31 @@ DATA: 17/06/2026
       }
 
       .print-photo-grid {
-        /* Altura fixa para 2×2 caber em A4 com margem */
-        height: 230mm;
-        gap: 5mm;
+        height: auto;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:2mm;
       }
 
       .print-photo-card {
-        height: 112mm;
-        padding: 3.5mm;
+        height:auto;
+        min-height:0;
+        padding:1.5mm;
         break-inside: avoid;
         page-break-inside: avoid;
       }
 
       .print-photo-frame {
-        height: 88mm;
+        height: 60mm;
       }
 
       .print-photo-text {
-        height: 16mm;
-        font-size: 8.5px;
-        line-height: 1.22;
-        overflow: hidden;
+        height:auto;
+        min-height:0;
+        margin-top:1mm;
+        font-size:7px;
+        line-height:1.05;
+        overflow:hidden;
       }
 
       /* Assinatura */
@@ -717,7 +721,7 @@ DATA: 17/06/2026
 
   <main class="page cover">
     <div>
-      <div class="cover-logo"><img src="logo-fksa.png" alt="FKSA Arquitetura | Design" /></div><div class="html-version">FKSA Template v3.0</div>
+      <div class="cover-logo"><img src="logo-fksa.png" alt="FKSA Arquitetura | Design" /></div><div class="html-version">FKSA Template v3.1</div>
       <section class="cover-title">
         <div class="eyebrow">Serviço técnico premium</div>
         <h1>Relatório de Vistoria Técnica Pós-Entrega</h1>
@@ -903,7 +907,7 @@ FKSA Arquitetura | Design</textarea></div>
       <button class="ghost" onclick="copyEmailTemplate()" style="margin-top:10px;">Copiar texto de envio</button>
     </section>
 
-    <div class="footer"><span>FKSA Arquitetura | Design — Template v3.0 — Relatório emitido por Felipe Karam Coelho Calvo — CAU A67536-9</span><img src="logo-fksa.png" alt="FKSA" /></div>
+    <div class="footer"><span>FKSA Arquitetura | Design — Template v3.1 — Relatório emitido por Felipe Karam Coelho Calvo — CAU A67536-9</span><img src="logo-fksa.png" alt="FKSA" /></div>
   </main>
 
   <section id="photoPrintContainer" class="photo-print-container"></section>
@@ -1095,12 +1099,7 @@ FKSA Arquitetura | Design</textarea></div>
           `;
           grid.appendChild(card);
         });
-        for (let empty = group.length; empty < 4; empty++) {
-          const blank = document.createElement('div');
-          blank.className = 'print-photo-card';
-          blank.style.visibility = 'hidden';
-          grid.appendChild(blank);
-        }
+        // v3.1 - removidos cards vazios para melhor aproveitamento da página
         container.appendChild(page);
       }
     }
