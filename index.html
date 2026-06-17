@@ -118,10 +118,12 @@
     h2 { font-size: 14px; margin: 26px 0 12px; padding-bottom: 7px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: .45px; color: var(--primary); }
     h3 { font-size: 13px; margin: 18px 0 8px; color: var(--primary); }
 
-    .intro-card { background: var(--light); border: 1px solid var(--border); border-radius: 18px; padding: 18px; margin: 16px 0 22px; }
+    .intro-card { background: var(--light); border: 1px solid var(--border); border-radius: 18px; padding: 12px; margin: 10px 0 14px; }
+    .intro-card p { font-size:11px; line-height:1.25; }
     .intro-card h2 { border: 0; padding: 0; margin-top: 0; }
     .benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
-    .benefit { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; font-size: 12px; }
+    .benefit { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 8px; font-size: 10px; }
+    .benefit strong { margin-bottom:1px; }
     .benefit strong { display: block; color: var(--primary); margin-bottom: 3px; }
 
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -602,14 +604,14 @@
   
     @media print {
       #photoInputSection {
-        break-before: page !important;
-        page-break-before: always !important;
+        break-before: auto !important;
+        page-break-before: auto !important;
       }
 
       .page-break-occurrences,
       .page-break-opinion {
-        break-before: page !important;
-        page-break-before: always !important;
+        break-before: auto !important;
+        page-break-before: auto !important;
       }
 
       .technical-branding,
@@ -622,21 +624,21 @@
       .print-photo-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4mm;
+        gap: 2mm;
         page-break-inside: avoid;
         break-inside: avoid;
       }
 
       .print-photo-card {
-        min-height: 100mm;
-        max-height: 108mm;
+        min-height: 86mm;
+        max-height: 90mm;
         overflow: hidden;
         page-break-inside: avoid;
         break-inside: avoid;
       }
 
       .print-photo-frame {
-        height: 72mm;
+        height: 58mm;
         display:flex;
         align-items:center;
         justify-content:center;
@@ -649,11 +651,12 @@
       }
 
       .print-photo-text {
-        min-height:14mm;
-        max-height:18mm;
+        min-height:8mm;
+        max-height:10mm;
         overflow:hidden;
-        font-size:8px;
-        line-height:1.2;
+        font-size:7px;
+        line-height:1.05;
+        margin-top:1mm;
         word-break:break-word;
       }
     }
@@ -672,8 +675,8 @@
   }
 
   .group-opinion {
-      break-inside: avoid;
-      page-break-inside: avoid;
+      break-inside: auto;
+      page-break-inside: auto;
   }
 }
 
