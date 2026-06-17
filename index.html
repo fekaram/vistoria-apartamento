@@ -2,7 +2,7 @@
 <!--
 =================================================
 FKSA VISTORIA PÓS-ENTREGA
-VERSÃO 3.1
+VERSÃO 3.2
 DATA: 17/06/2026
 =================================================
 -->
@@ -236,12 +236,11 @@ DATA: 17/06/2026
     .print-photo-header p { margin: 2px 0 0; font-size: 10px; color: var(--secondary); }
 
     .print-photo-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 6mm;
-      height: 235mm;
-    }
+        display:flex;
+        flex-wrap:wrap;
+        gap:2mm;
+        height:auto !important;
+      }
 
     .print-photo-card {
       border: 1px solid var(--border);
@@ -701,13 +700,27 @@ DATA: 17/06/2026
     font-weight:600;
 }
 
+
+    .print-photo-card{
+      width:calc(50% - 1mm);
+      align-self:flex-start;
+      height:auto !important;
+      min-height:0 !important;
+    }
+
+    .save-status{
+      font-size:11px;
+      color:#666;
+      margin-left:12px;
+    }
+    
 </style>
 </head>
 
 <body>
   <div class="toolbar no-print">
     <strong>FKSA | Relatório de Vistoria Técnica Pós-Entrega</strong>
-    <div class="toolbar-actions">
+    <div class="toolbar-actions"><span id="saveStatus" class="save-status">Nenhum rascunho salvo</span>
       <button class="ghost" onclick="generateReportNumber()">Gerar nº</button>
       <button class="ghost" onclick="addOccurrence()">+ Ocorrência</button>
       <button class="ghost" onclick="addPhotoBlock()">+ Bloco de fotos</button>
@@ -721,7 +734,7 @@ DATA: 17/06/2026
 
   <main class="page cover">
     <div>
-      <div class="cover-logo"><img src="logo-fksa.png" alt="FKSA Arquitetura | Design" /></div><div class="html-version">FKSA Template v3.1</div>
+      <div class="cover-logo"><img src="logo-fksa.png" alt="FKSA Arquitetura | Design" /></div><div class="html-version">FKSA Template v3.2</div>
       <section class="cover-title">
         <div class="eyebrow">Serviço técnico premium</div>
         <h1>Relatório de Vistoria Técnica Pós-Entrega</h1>
@@ -907,7 +920,7 @@ FKSA Arquitetura | Design</textarea></div>
       <button class="ghost" onclick="copyEmailTemplate()" style="margin-top:10px;">Copiar texto de envio</button>
     </section>
 
-    <div class="footer"><span>FKSA Arquitetura | Design — Template v3.1 — Relatório emitido por Felipe Karam Coelho Calvo — CAU A67536-9</span><img src="logo-fksa.png" alt="FKSA" /></div>
+    <div class="footer"><span>FKSA Arquitetura | Design — Template v3.2 — Relatório emitido por Felipe Karam Coelho Calvo — CAU A67536-9</span><img src="logo-fksa.png" alt="FKSA" /></div>
   </main>
 
   <section id="photoPrintContainer" class="photo-print-container"></section>
@@ -927,7 +940,7 @@ FKSA Arquitetura | Design</textarea></div>
         photos: collectPhotoCards()
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      alert('Vistoria salva neste navegador.');
+      document.getElementById('saveStatus').innerText='Rascunho salvo: '+new Date().toLocaleTimeString(); alert('Vistoria salva neste navegador.');
     }
 
     function loadDraft() {
@@ -1099,7 +1112,7 @@ FKSA Arquitetura | Design</textarea></div>
           `;
           grid.appendChild(card);
         });
-        // v3.1 - removidos cards vazios para melhor aproveitamento da página
+        // v3.2 - removidos cards vazios para melhor aproveitamento da página
         container.appendChild(page);
       }
     }
@@ -1163,7 +1176,9 @@ FKSA Arquitetura | Design</textarea></div>
       } catch (error) {}
     });
 
-    window.addEventListener('DOMContentLoaded', function() {
+    setInterval(saveDraft, 30000);
+
+window.addEventListener('DOMContentLoaded', function() {
       indexSavableFields();
       if (localStorage.getItem(STORAGE_KEY)) {
         const shouldLoad = confirm('Existe uma vistoria salva neste navegador. Deseja carregar?');
